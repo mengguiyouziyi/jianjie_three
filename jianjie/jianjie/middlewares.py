@@ -12,8 +12,8 @@ from random import choice
 proxyServer = "http://proxy.abuyun.com:9020"
 
 # 1
-proxyUser = "HXD5C309K96U458D"
-proxyPass = "8A8D1DF2B4B57A64"
+proxyUser = "HE5I6A6073H102ID"
+proxyPass = "48512F15BA217F88"
 
 # for Python3
 proxyAuth = "Basic " + base64.urlsafe_b64encode(bytes((proxyUser + ":" + proxyPass), "ascii")).decode("utf8")
