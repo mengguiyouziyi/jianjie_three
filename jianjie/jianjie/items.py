@@ -24,3 +24,9 @@ class ShunqiLiuzhouItem(scrapy.Item):
 	comp_url = scrapy.Field()
 	comp_name = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class ShunqiKunmingItem(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	intro = scrapy.Field()
