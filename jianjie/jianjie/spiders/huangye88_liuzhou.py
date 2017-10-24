@@ -11,17 +11,16 @@ class TouzishijianSpider(scrapy.Spider):
 	burl = 'http://b2b.huangye88.com/liuzhou/{}/pn{}/'
 	custom_settings = {
 		'DEFAULT_REQUEST_HEADERS': {
-			'x-devtools-emulate-network-conditions-client-id': "82dfd7c8-61b5-4d6e-be6b-737478ed94c1",
 			'upgrade-insecure-requests': "1",
 			# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
 			'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-			'referer': "http://b2b.huangye88.com/guangxi/",
 			'accept-encoding': "gzip, deflate",
 			'accept-language': "zh-CN,zh;q=0.8",
-			# 'cookie': "PHPSESSID=4040d366a1b443148ac52884266bed3659eeb167d63461.93983296; _ga=GA1.2.1756847603.1508815209; _gid=GA1.2.343721429.1508815209; Hm_lvt_c8184fd80a083199b0e82cc431ab6740=1508815209; Hm_lpvt_c8184fd80a083199b0e82cc431ab6740=1508815666",
+			# 'cookie': "PHPSESSID=4040d366a1b443148ac52884266bed3659eeb167d63461.93983296; bdshare_firstime=1508826565878; _ga=GA1.2.1756847603.1508815209; _gid=GA1.2.343721429.1508815209; Hm_lvt_c8184fd80a083199b0e82cc431ab6740=1508815209; Hm_lpvt_c8184fd80a083199b0e82cc431ab6740=1508828906",
 			'cache-control': "no-cache",
-			'postman-token': "41f85de8-6890-17d4-f427-410383245168"
+			'postman-token': "b0296cb1-1ad3-91a0-befb-21ff27eae9cb"
 		}
+
 	}
 
 	def start_requests(self):
@@ -53,7 +52,7 @@ class TouzishijianSpider(scrapy.Spider):
 		if pn_now >= pn:
 			return
 		cat = response.meta.get('cat', '')
-		yield scrapy.Request(self.burl.format(cat, (pn_now + 1)), callback=self.parse_list)
+		yield scrapy.Request(self.burl.format(cat, (pn_now + 1)), callback=self.parse_list, meta={'cat': cat})
 
 	def parse_detail(self, response):
 		item = Huangye88LiuzhouItem()
