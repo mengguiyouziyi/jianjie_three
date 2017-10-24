@@ -12,3 +12,9 @@ class Huangye88KunmingItem(scrapy.Item):
 	comp_url = scrapy.Field()
 	comp_name = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class Huangye88LiuzhouItem(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	intro = scrapy.Field()

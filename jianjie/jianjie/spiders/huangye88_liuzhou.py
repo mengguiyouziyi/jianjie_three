@@ -3,7 +3,7 @@ import scrapy
 import re
 from scrapy.selector import Selector
 from math import ceil
-from jianjie.items import Huangye88KunmingItem
+from jianjie.items import Huangye88LiuzhouItem
 
 
 class TouzishijianSpider(scrapy.Spider):
@@ -25,7 +25,7 @@ class TouzishijianSpider(scrapy.Spider):
 	}
 
 	def start_requests(self):
-		start_url = "http://b2b.huangye88.com/kunming/"
+		start_url = "http://b2b.huangye88.com/liuzhou/"
 		yield scrapy.Request(start_url)
 
 	def parse(self, response):
@@ -33,7 +33,7 @@ class TouzishijianSpider(scrapy.Spider):
 		cat_tags = sel.xpath('//ul[@class="clearfix"]/li/a')
 		for cat_tag in cat_tags:
 			cat_url = cat_tag.xpath('./@href').extract_first()
-			cat = re.search(r'com/kunming/(\w+)/$', cat_url).groups()[0]
+			cat = re.search(r'com/liuzhou/(\w+)/$', cat_url).groups()[0]
 			# cat_name = cat_tag.xpath('./text()').extract_first()
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat': cat})
 
@@ -56,7 +56,7 @@ class TouzishijianSpider(scrapy.Spider):
 		yield scrapy.Request(self.burl.format(cat, (pn_now + 1)), callback=self.parse_list)
 
 	def parse_detail(self, response):
-		item = Huangye88KunmingItem()
+		item = Huangye88LiuzhouItem()
 		sel = Selector(text=response.text)
 		comp_name = sel.xpath('//p[@class="com-name"]/text()|//h1[@class="banner-text"]/a/text()').extract_first()
 		intros = sel.xpath('//p[@class="txt"]/text()|//div[@class="com-intro"]/p/text()').extract()
