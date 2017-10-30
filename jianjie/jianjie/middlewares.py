@@ -8,24 +8,24 @@
 import base64
 from random import choice
 
-# 代理服务器
-proxyServer = "http://proxy.abuyun.com:9020"
-
-# 1
-# proxyUser = "HE5I6A6073H102ID"
-# proxyPass = "48512F15BA217F88"
-
-proxyUser = "HJ6L850B9KJ69Y4D"
-proxyPass = "6B572FD15BBDC0E9"
-
-# for Python3
-proxyAuth = "Basic " + base64.urlsafe_b64encode(bytes((proxyUser + ":" + proxyPass), "ascii")).decode("utf8")
-
 
 class ProxyMiddleware(object):
+	# 代理服务器
+	proxyServer = "http://proxy.abuyun.com:9020"
+
+	# 1
+	# proxyUser = "HE5I6A6073H102ID"
+	# proxyPass = "48512F15BA217F88"
+
+	proxyUser = "HJ6L850B9KJ69Y4D"
+	proxyPass = "6B572FD15BBDC0E9"
+
+	# for Python3
+	proxyAuth = "Basic " + base64.urlsafe_b64encode(bytes((proxyUser + ":" + proxyPass), "ascii")).decode("utf8")
+
 	def process_request(self, request, spider):
-		request.meta["proxy"] = proxyServer
-		request.headers["Proxy-Authorization"] = proxyAuth
+		request.meta["proxy"] = self.proxyServer
+		request.headers["Proxy-Authorization"] = self.proxyAuth
 
 
 class RetryMiddleware(object):

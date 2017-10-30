@@ -50,7 +50,6 @@ class TouzishijianSpider(scrapy.Spider):
 
 	def parse_list(self, response):
 		item = response.meta.get('item')
-		print(response.url)
 		sel = Selector(text=response.text)
 		comp_urls = sel.xpath('//*[@id="jubao"]/dl/dt/h4/a/@href|//ul[@class="news"]/li/a/@href').extract()
 		for comp_url in comp_urls:
@@ -75,6 +74,6 @@ class TouzishijianSpider(scrapy.Spider):
 		intro = ''.join(intros) if intros else ''
 		item['comp_url'] = response.url
 		item['comp_name'] = comp_name
-		item['intro'] = intro
+		item['intro'] = intro.strip()
 
 		yield item
