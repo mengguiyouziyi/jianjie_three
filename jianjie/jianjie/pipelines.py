@@ -47,17 +47,19 @@ class MysqlPipeline(object):
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
+			print(item['comp_url'], item['comp_name'])
 		elif isinstance(item, MinglujiKunmingItem):
 			sql = """insert into jianjie_mingluji_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
+			print(item['comp_url'], item['comp_name'])
 		elif isinstance(item, ShunqiAllItem):
 			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
+			# print(item['comp_url'], item['comp_name'])
+		print(item['comp_url'], item['comp_name'])
+
 
