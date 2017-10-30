@@ -20,6 +20,13 @@ class Huangye88LiuzhouItem(scrapy.Item):
 	intro = scrapy.Field()
 
 
+class ShunqiAllItem(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	intro = scrapy.Field()
+	city = scrapy.Field()
+
+
 class ShunqiLiuzhouItem(scrapy.Item):
 	comp_url = scrapy.Field()
 	comp_name = scrapy.Field()

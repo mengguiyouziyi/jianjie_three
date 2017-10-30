@@ -6,7 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymysql
-from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, MinglujiLiuzhouItem, MinglujiKunmingItem
+from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem
 
 
 class MysqlPipeline(object):
@@ -14,6 +14,7 @@ class MysqlPipeline(object):
 		self.conn = pymysql.connect(host='etl1.innotree.org', port=3308, user='spider', password='spider', db='spider',
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
+		print('mysql init....')
 
 	def process_item(self, item, spider):
 		if isinstance(item, Huangye88KunmingItem):
@@ -53,5 +54,10 @@ class MysqlPipeline(object):
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 			print(item['comp_url'] + item['comp_name'])
-
+		elif isinstance(item, ShunqiAllItem):
+			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
+			print(item['comp_url'] + item['comp_name'])
 
