@@ -39,10 +39,15 @@ class TouzishijianSpider(scrapy.Spider):
 	def parse_city(self, response):
 		item = response.get('item')
 		sel = Selector(text=response.text)
-		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
-		for cat_tag in cat_tags:
-			cat_url = cat_tag.xpath('./@href').extract_first()
-			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
+		fas = sel.xpath('//div[@class="box sidesubcat t5"]')
+		for fa in fas:
+			te = fa.xpath('./div[@class="boxtitle"]').extract_first()
+			if '按城市浏览全国公司黄页' != te:
+				continue
+			cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
+			for cat_tag in cat_tags:
+				cat_url = cat_tag.xpath('./@href').extract_first()
+				yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
 	def parse_list(self, response):
 		item = response.get('item')
