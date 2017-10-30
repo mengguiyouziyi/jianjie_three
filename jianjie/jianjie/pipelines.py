@@ -7,7 +7,7 @@
 
 import pymysql
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
-	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem
+	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem
 
 
 class MysqlPipeline(object):
@@ -24,41 +24,39 @@ class MysqlPipeline(object):
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
 		elif isinstance(item, Huangye88LiuzhouItem):
 			sql = """insert into jianjie_huangye88_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
 		elif isinstance(item, ShunqiLiuzhouItem):
 			sql = """insert into jianjie_shunqi_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
 		elif isinstance(item, ShunqiKunmingItem):
 			sql = """insert into jianjie_shunqi_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'] + item['comp_name'])
 		elif isinstance(item, MinglujiLiuzhouItem):
 			sql = """insert into jianjie_mingluji_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'], item['comp_name'])
 		elif isinstance(item, MinglujiKunmingItem):
 			sql = """insert into jianjie_mingluji_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(item['comp_url'], item['comp_name'])
 		elif isinstance(item, ShunqiAllItem):
 			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-		# print(item['comp_url'], item['comp_name'])
+		elif isinstance(item, Huangye88AllItem):
+			sql = """insert into jianjie_huangye88_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
 		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
