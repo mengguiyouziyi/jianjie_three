@@ -44,7 +44,7 @@ class TouzishijianSpider(scrapy.Spider):
 		cat_tags = sel.xpath('//ul[@class="clearfix"]/li/a')
 		for cat_tag in cat_tags:
 			cat_url = cat_tag.xpath('./@href').extract_first()
-			cat = re.search(r'com/kunming/([-\w+]+)/$', cat_url).groups()[0]
+			cat = re.search(r'com/.*/([-\w+]+)/$', cat_url).groups()[0]
 			# cat_name = cat_tag.xpath('./text()').extract_first()
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat': cat, 'item': item})
 
