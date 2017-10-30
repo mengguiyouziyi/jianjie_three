@@ -30,7 +30,7 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		fas = select.xpath('//div[@class="box sidesubcat t5"]')
 		for fa in fas:
-			te = fa.xpath('./div[@class="boxtitle"]').extract_first()
+			te = fa.xpath('./div[@class="boxtitle"]/text()').extract_first()
 			if '按城市浏览全国公司黄页' != te:
 				continue
 			urls_a = fa.xpath('./div[@class="boxcontent"]/dl[@class="listtxt"]/dd/a')
