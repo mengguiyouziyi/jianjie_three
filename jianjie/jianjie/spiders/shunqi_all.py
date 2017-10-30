@@ -37,7 +37,8 @@ class TouzishijianSpider(scrapy.Spider):
 			for a in urls_a:
 				url = a.xpath('./@href').extract_first()
 				url = urljoin(response.url, url)
-				city = a.xpath('./em/text()').extract_first()
+				city = a.xpath('./em/text()|./text()').extract_first()
+				print(city)
 				item['city'] = city
 				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
 
