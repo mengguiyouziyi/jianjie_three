@@ -26,7 +26,6 @@ class TouzishijianSpider(scrapy.Spider):
 		yield scrapy.Request(start_url)
 
 	def parse(self, response):
-		item = ShunqiAllItem()
 		select = Selector(text=response.text)
 		fas = select.xpath('//div[@class="box sidesubcat t5"]')
 		for fa in fas:
@@ -35,6 +34,7 @@ class TouzishijianSpider(scrapy.Spider):
 				continue
 			urls_a = fa.xpath('./div[@class="boxcontent"]/dl[@class="listtxt"]/dd/a')
 			for a in urls_a:
+				item = ShunqiAllItem()
 				url = a.xpath('./@href').extract_first()
 				url = urljoin(response.url, url)
 				city = a.xpath('./em/text()|./text()').extract_first()
