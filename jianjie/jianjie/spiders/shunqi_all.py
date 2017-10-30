@@ -42,7 +42,7 @@ class TouzishijianSpider(scrapy.Spider):
 				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
 
 	def parse_city(self, response):
-		item = response.get('item')
+		item = response.meta.get('item')
 		sel = Selector(text=response.text)
 		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
 		for cat_tag in cat_tags:
@@ -50,7 +50,7 @@ class TouzishijianSpider(scrapy.Spider):
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
 	def parse_list(self, response):
-		item = response.get('item')
+		item = response.meta.get('item')
 		sel = Selector(text=response.text)
 		comp_urls = sel.xpath('//div[@class="f_l"]/h4/a/@href').extract()
 		for comp_url in comp_urls:
@@ -65,7 +65,7 @@ class TouzishijianSpider(scrapy.Spider):
 		yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
 
 	def parse_detail(self, response):
-		item = response.get('item')
+		item = response.meta.get('item')
 		sel = Selector(text=response.text)
 		comp_name = sel.xpath('//div[@class="navleft"]/a[last()]/text()').extract_first()
 		intros = sel.xpath('//div[@class="boxcontent text"]//text()').extract()
