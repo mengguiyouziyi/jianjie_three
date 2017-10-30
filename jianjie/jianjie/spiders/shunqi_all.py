@@ -28,33 +28,33 @@ class TouzishijianSpider(scrapy.Spider):
 	def parse(self, response):
 		item = ShunqiAllItem()
 		select = Selector(text=response.text)
-		urls_a = select.xpath('//div[@class="boxcontent"]/dl[@class="listtxt"]/dd/a')
-		for a in urls_a:
-			url = a.xpath('./@href').re(r'//www.11467.com/.*/$')
-			url = urljoin(response.url, url)
-			city = a.xpath('./em/text()').extract_first()
-			item['city'] = city
-			yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
-
-	def parse_city(self, response):
-		item = response.get('item')
-		sel = Selector(text=response.text)
-		fas = sel.xpath('//div[@class="box sidesubcat t5"]')
+		fas = select.xpath('//div[@class="box sidesubcat t5"]')
 		for fa in fas:
 			te = fa.xpath('./div[@class="boxtitle"]').extract_first()
 			if '按城市浏览全国公司黄页' != te:
 				continue
-			cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
-			for cat_tag in cat_tags:
-				cat_url = cat_tag.xpath('./@href').extract_first()
-				yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
+			urls_a = fa.xpath('./div[@class="boxcontent"]/dl[@class="listtxt"]/dd/a')
+			for a in urls_a:
+				url = a.xpath('./@href').re(r'//www.11467.com/.*/$')
+				url = urljoin(response.url, url)
+				city = a.xpath('./em/text()').extract_first()
+				item['city'] = city
+				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
+
+	def parse_city(self, response):
+		item = response.get('item')
+		sel = Selector(text=response.text)
+		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
+		for cat_tag in cat_tags:
+			cat_url = cat_tag.xpath('./@href').extract_first()
+			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
 	def parse_list(self, response):
 		item = response.get('item')
 		sel = Selector(text=response.text)
 		comp_urls = sel.xpath('//div[@class="f_l"]/h4/a/@href').extract()
 		for comp_url in comp_urls:
-			yield scrapy.Request('http:'+comp_url, callback=self.parse_detail, meta={'item': item})
+			yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
 
 		pn_next = sel.xpath('//div[@class="pages"]/a[text()="下一页"]/@href').extract_first()
 		pn_last = sel.xpath('//div[@class="pages"]/a[text()="尾页"]/@href').extract_first()
@@ -62,7 +62,7 @@ class TouzishijianSpider(scrapy.Spider):
 		pn_nex = pn_ne if pn_ne else ''
 		if not pn_nex:
 			return
-		yield scrapy.Request('http:'+pn_ne, callback=self.parse_list, meta={'item': item})
+		yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
 
 	def parse_detail(self, response):
 		item = response.get('item')
