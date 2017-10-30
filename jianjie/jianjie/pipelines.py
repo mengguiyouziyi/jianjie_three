@@ -6,7 +6,8 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymysql
-from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem
+from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
+	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem
 
 
 class MysqlPipeline(object):
@@ -59,7 +60,5 @@ class MysqlPipeline(object):
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			# print(item['comp_url'], item['comp_name'])
-		print(item['comp_url'], item['comp_name'])
-
-
+		# print(item['comp_url'], item['comp_name'])
+		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
