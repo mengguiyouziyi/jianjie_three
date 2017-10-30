@@ -35,7 +35,7 @@ class TouzishijianSpider(scrapy.Spider):
 				continue
 			urls_a = fa.xpath('./div[@class="boxcontent"]/dl[@class="listtxt"]/dd/a')
 			for a in urls_a:
-				url = a.xpath('./@href').re(r'//www.11467.com/.*/$')
+				url = a.xpath('./@href').extract_first()
 				url = urljoin(response.url, url)
 				city = a.xpath('./em/text()').extract_first()
 				item['city'] = city
