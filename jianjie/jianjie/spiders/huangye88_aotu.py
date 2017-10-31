@@ -101,11 +101,11 @@ class TouzishijianSpider(scrapy.Spider):
 			posi = td.xpath('./text()').extract_first()
 		item['posi'] = posi
 
-		ul_tags = sel.xpath('//ul[@class="con-txt"]/li')
+		ul_tags = sel.xpath('//ul[@class="con-txt"]/li|//ul[@class="pro-list"]/li')
 		shengshi = ''
 		for ul in ul_tags:
 			label = ul.xpath('./label/text()').extract_first()
-			if '所在地：' != label:
+			if '所在地' not in label:
 				continue
 			shengshi = ul.xpath('./text()').extract_first()
 		item['shengshi'] = shengshi
