@@ -93,13 +93,16 @@ class TouzishijianSpider(scrapy.Spider):
 		# item['comp_name'] = comp_name
 		item['intro'] = intro.strip()
 		td_tags = sel.xpath('//div[@class="r-content"]//td')
+		posi = ''
 		for td in td_tags:
 			span = td.xpath('./span/text()').extract_first()
 			if '公司地址' != span:
 				continue
 			posi = td.xpath('./text()').extract_first()
 		item['posi'] = posi
+
 		ul_tags = sel.xpath('//ul[@class="con-txt"]/li')
+		shengshi = ''
 		for ul in ul_tags:
 			label = ul.xpath('./label/text()').extract_first()
 			if '所在地：' != label:
