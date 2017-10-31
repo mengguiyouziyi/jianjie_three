@@ -7,7 +7,7 @@
 
 import pymysql
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
-	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem
+	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem
 
 
 class MysqlPipeline(object):
@@ -57,6 +57,11 @@ class MysqlPipeline(object):
 		elif isinstance(item, Huangye88AllItem):
 			sql = """insert into jianjie_huangye88_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
+		elif isinstance(item, Huangye88AotuItem):
+			sql = """insert into jianjie_huangye88_aotu (comp_url, comp_name, intro, posi, shengshi, cat) VALUES(%s, %s, %s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['intro'], item['posi'], item['shengshi'], item['cat']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
