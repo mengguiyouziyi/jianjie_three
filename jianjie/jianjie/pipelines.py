@@ -59,6 +59,7 @@ class MysqlPipeline(object):
 				self.cursor.executemany(sql, args_list)
 				self.conn.commit()
 				self.item_set.clear()
+				print('200 insert')
 
 
 			else:
