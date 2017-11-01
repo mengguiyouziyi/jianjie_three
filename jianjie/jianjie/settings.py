@@ -32,7 +32,7 @@ NEWSPIDER_MODULE = 'jianjie.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 100
+CONCURRENT_REQUESTS = 100
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -113,7 +113,7 @@ USER_AGENT_CHOICES = [
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-	# 'jianjie.middlewares.ProxyMiddleware': 1,
+	'jianjie.middlewares.ProxyMiddleware': 1,
 	'jianjie.middlewares.RetryMiddleware': 110,
 	'jianjie.middlewares.RotateUserAgentMiddleware': 2,
 	# 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
@@ -128,7 +128,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-	'jianjie.pipelines.MysqlPipeline': 300,
+	'jianjie.pipelines.MysqlPipeline': 999,
+	'jianjie.pipelines.DuplicatesPipeline': 111,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
