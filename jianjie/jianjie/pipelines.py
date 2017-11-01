@@ -16,7 +16,7 @@ class MysqlPipeline(object):
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 		print('mysql init....')
-		self.item_set = set()
+		self.item_set = []
 
 	def process_item(self, item, spider):
 		if isinstance(item, Huangye88KunmingItem):
@@ -51,11 +51,12 @@ class MysqlPipeline(object):
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 		elif isinstance(item, ShunqiAllItem):
+			print(str(item['comp_url']) + ' ' + str(item['comp_name']))
 			if len(self.item_set) == 200:
 
 
 				sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
-				args_list = [[item['comp_url'], item['comp_name'], item['intro'], item['city']] for item in self.item_set]
+				args_list = [[i['comp_url'], i['comp_name'], i['intro'], i['city']] for i in self.item_set]
 				self.cursor.executemany(sql, args_list)
 				self.conn.commit()
 				self.item_set.clear()
@@ -63,8 +64,7 @@ class MysqlPipeline(object):
 
 
 			else:
-				self.item_set.add(item)
-				print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+				self.item_set.append(item)
 
 
 
