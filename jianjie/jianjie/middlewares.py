@@ -16,8 +16,8 @@ class ProxyMiddleware(object):
 	# proxyUser = "HE5I6A6073H102ID"
 	# proxyPass = "48512F15BA217F88"
 
-	proxyUser = "HJ6L850B9KJ69Y4D"
-	proxyPass = "6B572FD15BBDC0E9"
+	# proxyUser = "HJ6L850B9KJ69Y4D"
+	# proxyPass = "6B572FD15BBDC0E9"
 
 	proxyUser = "H10D264809F81C4D"
 	proxyPass = "F128D58B736B5327"

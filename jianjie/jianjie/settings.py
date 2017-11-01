@@ -113,7 +113,7 @@ USER_AGENT_CHOICES = [
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-	'jianjie.middlewares.ProxyMiddleware': 1,
+	# 'jianjie.middlewares.ProxyMiddleware': 1,
 	'jianjie.middlewares.RetryMiddleware': 110,
 	'jianjie.middlewares.RotateUserAgentMiddleware': 2,
 	# 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,

@@ -16,7 +16,6 @@ class MysqlPipeline(object):
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 		print('mysql init....')
-		self.item_set = set()
 
 	def process_item(self, item, spider):
 		if isinstance(item, Huangye88KunmingItem):
@@ -51,22 +50,10 @@ class MysqlPipeline(object):
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 		elif isinstance(item, ShunqiAllItem):
-			if len(self.item_set) == 200:
-
-
-				sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
-				args_list = [[item['comp_url'], item['comp_name'], item['intro'], item['city']] for item in self.item_set]
-				self.cursor.executemany(sql, args_list)
-				self.conn.commit()
-				self.item_set.clear()
-
-
-			else:
-				self.item_set.add(item)
-				print(str(item['comp_url']) + ' ' + str(item['comp_name']))
-
-
-
+			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
 		elif isinstance(item, Huangye88AllItem):
 			sql = """insert into jianjie_huangye88_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
@@ -77,4 +64,4 @@ class MysqlPipeline(object):
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['posi'], item['shengshi'], item['cat']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-		# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
