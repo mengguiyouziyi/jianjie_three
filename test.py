@@ -1,3 +1,14 @@
+import pymysql
+
+conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
+                       charset='utf8', cursorclass=pymysql.cursors.DictCursor)
+cur = conn.cursor()
+sql = """select distinct city from jianjie_shunqi_all_copy"""
+cur.execute(sql)
+rs = cur.fetchall()
+print([r['city'] for r in rs])
+
+
 # class B(object):
 # 	print('b')
 #
@@ -6,29 +17,29 @@
 # 	print('d')
 
 
-import hashlib
-
-
-def gen_id(comp_name):
-	"""
-	生成唯一id
-	:return:
-	0cc2662f5eb157c8ffcd43c145de499f2ab27a71
-	72843135390705548651698998647502012318670289521
-	a3f4a5b080e2a4ef4a708b9c9f5ad003
-	217934444328053067635429399579879723011
-	"""
-	m = hashlib.md5()
-	m.update(comp_name.encode('utf-8'))
-	comp_md5 = m.hexdigest()
-	print(comp_md5)
-	only_id_full = int(comp_md5, 16)
-	return str(only_id_full)
-
-
-if __name__ == '__main__':
-	only_id = gen_id('百度')
-	print(only_id)
+# import hashlib
+#
+#
+# def gen_id(comp_name):
+# 	"""
+# 	生成唯一id
+# 	:return:
+# 	0cc2662f5eb157c8ffcd43c145de499f2ab27a71
+# 	72843135390705548651698998647502012318670289521
+# 	a3f4a5b080e2a4ef4a708b9c9f5ad003
+# 	217934444328053067635429399579879723011
+# 	"""
+# 	m = hashlib.md5()
+# 	m.update(comp_name.encode('utf-8'))
+# 	comp_md5 = m.hexdigest()
+# 	print(comp_md5)
+# 	only_id_full = int(comp_md5, 16)
+# 	return str(only_id_full)
+#
+#
+# if __name__ == '__main__':
+# 	only_id = gen_id('百度')
+# 	print(only_id)
 
 # # 导入selenium2中的webdriver库
 # from selenium import webdriver

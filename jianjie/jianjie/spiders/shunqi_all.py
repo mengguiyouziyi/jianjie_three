@@ -38,7 +38,12 @@ class TouzishijianSpider(scrapy.Spider):
 				url = a.xpath('./@href').extract_first()
 				url = urljoin(response.url, url)
 				city = a.xpath('./em/text()|./text()').extract_first()
+				citys = ['苏州', '邢台', '潮州', '衢州', '内江', '三沙市', '东莞', '漳州', '沧州', '汕头', '北京', '滨州', '抚顺', '济南', '杭州', '舟山', '朝阳', '台州', '青岛', '金华', '茂名', '菏泽', '莱芜', '宜宾', '汕尾', '沈阳', '云浮', '泰州', '广州', '衡水', '秦皇岛', '丽水', '泸州', '南平', '日照', '宿迁', '佛山', '莆田', '淄博', '湖州', '阳江', '盘锦', '连云港', '绵阳', '重庆', '深圳', '承德']
+
+				if city in citys:
+					continue
 				item['city'] = city
+
 				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
 
 	def parse_city(self, response):
