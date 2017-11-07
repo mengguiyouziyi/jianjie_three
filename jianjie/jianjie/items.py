@@ -67,3 +67,10 @@ class MinglujiKunmingItem(scrapy.Item):
 	comp_url = scrapy.Field()
 	comp_name = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class WuyouAllItem(scrapy.Item):
+	comp_name = scrapy.Field()
+	comp_url = scrapy.Field()
+	intro = scrapy.Field()
+	area = scrapy.Field()

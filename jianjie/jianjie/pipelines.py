@@ -11,7 +11,7 @@ from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
 from scrapy.exceptions import DropItem
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
-	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem
+	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem
 
 
 class MysqlPipeline(object):
@@ -20,21 +20,21 @@ class MysqlPipeline(object):
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 		print('mysql init....')
-		self.item_list = []
-		dispatcher.connect(self.spider_closed, signals.spider_closed)
+		# self.item_list = []
+		# dispatcher.connect(self.spider_closed, signals.spider_closed)
 
 	# def __init__(self):
 	#     self.browser = webdriver.Chrome(executable_path="D:/Temp/chromedriver.exe")
 	#     super(JobboleSpider, self).__init__()
 	#     dispatcher.connect(self.spider_closed, signals.spider_closed)
 	#
-	def spider_closed(self, spider):
-		# 当爬虫退出的时候关闭chrome
-		print("spider closed")
-		sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
-		self.cursor.executemany(sql, self.item_list)
-		self.conn.commit()
-		print('%s insert' % len(self.item_list))
+	# def spider_closed(self, spider):
+	# 	# 当爬虫退出的时候关闭chrome
+	# 	print("spider closed")
+	# 	sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+	# 	self.cursor.executemany(sql, self.item_list)
+	# 	self.conn.commit()
+	# 	print('%s insert' % len(self.item_list))
 
 	def process_item(self, item, spider):
 		if isinstance(item, Huangye88KunmingItem):
@@ -89,7 +89,12 @@ class MysqlPipeline(object):
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['posi'], item['shengshi'], item['cat']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-		# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+		elif isinstance(item, WuyouAllItem):
+			sql = """insert into jianjie_wuyou_all (comp_url, comp_name, intro, area) VALUES(%s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['intro'], item['area']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
+		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
 
 
 class DuplicatesPipeline(object):
