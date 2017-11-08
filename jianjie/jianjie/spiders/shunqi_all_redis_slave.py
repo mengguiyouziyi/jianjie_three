@@ -27,14 +27,12 @@ class TouzishijianSpider(scrapy.Spider):
 		x = 0
 		while True:
 			com_id_name = rc.spop('shunqi_all_detail')
-
 			if not com_id_name:
 				x += 1
 				if x > 5:
 					raise CloseSpider('no datas')
 				time.sleep(60)
 				continue
-
 			lis = com_id_name.split('//')
 			city = lis[0]
 			comp_url = 'http://' + lis[1]
@@ -42,7 +40,7 @@ class TouzishijianSpider(scrapy.Spider):
 			item['city'] = city
 			yield scrapy.Request(comp_url, meta={'item': item})
 
-	def parse_detail(self, response):
+	def parse(self, response):
 		item = response.meta.get('item')
 		sel = Selector(text=response.text)
 		comp_name = sel.xpath('//div[@class="navleft"]/a[last()]/text()').extract_first()
