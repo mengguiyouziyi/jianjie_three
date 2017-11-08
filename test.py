@@ -1,12 +1,30 @@
-import pymysql
+import time
 
-conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
-                       charset='utf8', cursorclass=pymysql.cursors.DictCursor)
-cur = conn.cursor()
-sql = """select distinct city from jianjie_shunqi_all_copy"""
-cur.execute(sql)
-rs = cur.fetchall()
-print([r['city'] for r in rs])
+class Y(object):
+	def __init__(self):
+		try:
+			print(1)
+			time.sleep(3)
+			y = 1 / 0
+
+		except Exception as e:
+			print(e)
+			self.__init__()
+
+
+if __name__ == '__main__':
+	Y()
+
+
+# import pymysql
+#
+# conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
+#                        charset='utf8', cursorclass=pymysql.cursors.DictCursor)
+# cur = conn.cursor()
+# sql = """select distinct city from jianjie_shunqi_all_copy"""
+# cur.execute(sql)
+# rs = cur.fetchall()
+# print([r['city'] for r in rs])
 
 
 # class B(object):

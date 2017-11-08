@@ -7,8 +7,9 @@
 
 import pymysql
 import hashlib
-from scrapy.xlib.pydispatch import dispatcher
-from scrapy import signals
+import time
+# from scrapy.xlib.pydispatch import dispatcher
+# from scrapy import signals
 from scrapy.exceptions import DropItem
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
 	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem, \
@@ -17,10 +18,14 @@ from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuz
 
 class MysqlPipeline(object):
 	def __init__(self):
-		self.conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
-		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
+		try:
+			self.conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
+			                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
+		except Exception as e:
+			print(e)
+			time.sleep(2)
+			self.__init__()
 		self.cursor = self.conn.cursor()
-		print('mysql init....')
 
 	# self.item_list = []
 	# dispatcher.connect(self.spider_closed, signals.spider_closed)
