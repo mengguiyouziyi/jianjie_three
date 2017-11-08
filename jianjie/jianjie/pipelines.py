@@ -76,7 +76,7 @@ class MysqlPipeline(object):
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 		elif isinstance(item, ShunqiAllItem):
-			sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = ([item['comp_url'], item['comp_name'], item['intro'], item['city']])
 			self.cursor.executemany(sql, args)
 			self.conn.commit()

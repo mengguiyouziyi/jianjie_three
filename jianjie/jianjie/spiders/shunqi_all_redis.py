@@ -66,6 +66,7 @@ class TouzishijianSpider(scrapy.Spider):
 		comp_urls = sel.xpath('//div[@class="f_l"]/h4/a/@href').extract()
 		for comp_url in comp_urls:
 			rc.sadd('shunqi_all', item['city'] + comp_url)
+			print(comp_url)
 
 			# yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
 
