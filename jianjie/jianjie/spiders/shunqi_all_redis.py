@@ -45,7 +45,7 @@ class TouzishijianSpider(scrapy.Spider):
 	def parse_city(self, response):
 		item = response.meta.get('item')
 		sel = Selector(text=response.text)
-		cat_urls = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dd/a/@href').extract_first()
+		cat_urls = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dd/a/@href').extract()
 		for cat_url in set(cat_urls):
 			print(cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
