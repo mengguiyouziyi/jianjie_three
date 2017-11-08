@@ -47,6 +47,7 @@ class TouzishijianSpider(scrapy.Spider):
 		sel = Selector(text=response.text)
 		cat_urls = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dd/a/@href').extract_first()
 		for cat_url in set(cat_urls):
+			print(cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
 	def parse_list(self, response):
@@ -63,4 +64,5 @@ class TouzishijianSpider(scrapy.Spider):
 		pn_nex = pn_ne if pn_ne else ''
 		if not pn_nex:
 			return
+		print('http:' + pn_ne)
 		yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
