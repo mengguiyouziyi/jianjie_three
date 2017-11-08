@@ -129,7 +129,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-	# 'jianjie.pipelines.MysqlPipeline': 999,
+	'jianjie.pipelines.MysqlPipeline': 999,
 	# 'jianjie.pipelines.DuplicatesPipeline': 111,
 }
 

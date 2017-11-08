@@ -13,7 +13,7 @@ sys.path.append(father_path)
 sys.path.append(ffather_path)
 import scrapy
 import time
-from jianjie.utils.bloomfilter import rc
+# from jianjie.utils.bloomfilter import rc
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector

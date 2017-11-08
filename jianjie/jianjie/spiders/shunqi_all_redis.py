@@ -3,7 +3,7 @@ import scrapy
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import ShunqiAllItem
-from jianjie.utils.bloomfilter import rc
+# from jianjie.utils.bloomfilter import rc
 
 
 class TouzishijianSpider(scrapy.Spider):
@@ -48,49 +48,45 @@ class TouzishijianSpider(scrapy.Spider):
 				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
 
 	def parse_city(self, response):
-		"""
-		这个地方把连接存入redis
-		:param response:
-		:return:
-		"""
 		item = response.meta.get('item')
 		sel = Selector(text=response.text)
-		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
+		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dd/a')
+		print(len(cat_tags))
 		for cat_tag in cat_tags:
 			cat_url = cat_tag.xpath('./@href').extract_first()
-			print(cat_url)
-			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
+			# print(cat_url)
+			# yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
-	def parse_list(self, response):
-		item = response.meta.get('item')
-		sel = Selector(text=response.text)
-		comp_urls = sel.xpath('//div[@class="f_l"]/h4/a/@href').extract()
-		for comp_url in comp_urls:
-			val = item['city'] + comp_url
-			print(val)
-			rc.sadd('shunqi_all_detail', val)
-
-			# yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
-
-		pn_next = sel.xpath('//div[@class="pages"]/a[text()="下一页"]/@href').extract_first()
-		pn_last = sel.xpath('//div[@class="pages"]/a[text()="尾页"]/@href').extract_first()
-		pn_ne = pn_next if pn_next else pn_last
-		pn_nex = pn_ne if pn_ne else ''
-		if not pn_nex:
-			return
-		print('http:' + pn_ne)
-		yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
-
-	def parse_detail(self, response):
-		item = response.meta.get('item')
-		sel = Selector(text=response.text)
-		comp_name = sel.xpath('//div[@class="navleft"]/a[last()]/text()').extract_first()
-		intros = sel.xpath('//div[@class="boxcontent text"]//text()').extract()
-		intro = ''.join(intros) if intros else ''
-		intro = intro.strip()
-		item['comp_url'] = response.url
-		item['comp_name'] = comp_name
-		item['intro'] = intro
-		# item['city'] = re.search(r'http://www\.11467\.com/(.*)/co/\d+.htm', response.url).group(1)
-
-		yield item
+	# def parse_list(self, response):
+	# 	item = response.meta.get('item')
+	# 	sel = Selector(text=response.text)
+	# 	comp_urls = sel.xpath('//div[@class="f_l"]/h4/a/@href').extract()
+	# 	for comp_url in comp_urls:
+	# 		val = item['city'] + comp_url
+	# 		print(val)
+	# 		# rc.sadd('shunqi_all_detail', val)
+	#
+	# 		# yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
+	#
+	# 	pn_next = sel.xpath('//div[@class="pages"]/a[text()="下一页"]/@href').extract_first()
+	# 	pn_last = sel.xpath('//div[@class="pages"]/a[text()="尾页"]/@href').extract_first()
+	# 	pn_ne = pn_next if pn_next else pn_last
+	# 	pn_nex = pn_ne if pn_ne else ''
+	# 	if not pn_nex:
+	# 		return
+	# 	print('http:' + pn_ne)
+	# 	yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
+	# #
+	# # def parse_detail(self, response):
+	# # 	item = response.meta.get('item')
+	# # 	sel = Selector(text=response.text)
+	# # 	comp_name = sel.xpath('//div[@class="navleft"]/a[last()]/text()').extract_first()
+	# # 	intros = sel.xpath('//div[@class="boxcontent text"]//text()').extract()
+	# # 	intro = ''.join(intros) if intros else ''
+	# # 	intro = intro.strip()
+	# # 	item['comp_url'] = response.url
+	# # 	item['comp_name'] = comp_name
+	# # 	item['intro'] = intro
+	# # 	# item['city'] = re.search(r'http://www\.11467\.com/(.*)/co/\d+.htm', response.url).group(1)
+	# #
+	# # 	yield item

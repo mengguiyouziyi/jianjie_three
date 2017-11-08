@@ -68,8 +68,9 @@ startup_nodes = [{"host": "172.29.237.209", "port": "7000"},
 rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
 
 if __name__ == "__main__":
-	bf = PyBloomFilter(conn=rc)
-	bf.add('www.jobbole.com')
-	bf.add('www.zhihu.com')
-	print(bf.is_exist('www.zhihu.com'))
-	print(bf.is_exist('www.lagou.com'))
+	# bf = PyBloomFilter(conn=rc)
+	# bf.add('www.jobbole.com')
+	# bf.add('www.zhihu.com')
+	# print(bf.is_exist('www.zhihu.com'))
+	# print(bf.is_exist('www.lagou.com'))
+	pass
