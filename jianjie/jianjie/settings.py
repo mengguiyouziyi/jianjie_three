@@ -54,17 +54,17 @@ LOG_STDOUT = True
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-# 	'upgrade-insecure-requests': "1",
-# 	# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
-# 	'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-# 	'referer': "http://zdb.pedaily.cn/inv/p1",
-# 	'accept-encoding': "gzip, deflate",
-# 	'accept-language': "zh-CN,zh;q=0.8",
-# 	'cookie': "__uid=1818273228; BAIDU_SSP_lcr=https://www.baidu.com/link?url=zKfMujyv2RxSUtuTnbZMsCx6mSEVACw_mp3oL_9XBna&wd=&eqid=9b10a90700042e210000000359c24539; __utmt=1; jiathis_rdc=%7B%22http%3A//zdb.pedaily.cn/inv/show12525/%22%3A-1470910791%2C%22http%3A//zdb.pedaily.cn/company/show12283/%22%3A-1470883795%2C%22http%3A//zdb.pedaily.cn/enterprise/show32554%22%3A0%7C1506062811959%2C%22http%3A//zdb.pedaily.cn/company/show15613%22%3A%220%7C1506062835674%22%7D; ARRAffinity=197ae5372184c64aeca47f780a2e053f3a50366e2bda392cd4bfa3b38e39a929; Hm_lvt_25919c38fb62b67cfb40d17ce3348508=1505903948; Hm_lpvt_25919c38fb62b67cfb40d17ce3348508=1506063033; __utma=23980325.1982964119.1505903948.1505903948.1506062556.2; __utmb=23980325.19.10.1506062556; __utmc=23980325; __utmz=23980325.1505903948.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic",
-# 	'cache-control': "no-cache",
-# 	'postman-token': "385d961a-1a59-0fd0-76ed-a04a3a2e1b13"
-# }
+DEFAULT_REQUEST_HEADERS = {
+	'upgrade-insecure-requests': "1",
+	# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
+	'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+	'referer': "http://search.114chn.com/searchresult.aspx?type=1&areaid=31&pattern=2&page=100",
+	'accept-encoding': "gzip, deflate",
+	'accept-language': "zh-CN,zh;q=0.8",
+	# 'cookie': "bdshare_firstime=1509612560767; UM_distinctid=15f7bed65c32e0-01af79ead3a85f-31637e01-13c680-15f7bed65c4735; Hm_lvt_40b8d9bb56b7b9b3fee170b6b9b4bc8e=1509612561; Hm_lpvt_40b8d9bb56b7b9b3fee170b6b9b4bc8e=1509613182; CNZZDATA30067493=cnzz_eid%3D1102648662-1510104203-http%253A%252F%252Fsearch.114chn.com%252F%26ntime%3D1510104203",
+	'cache-control': "no-cache",
+	'postman-token': "b710e80f-5152-1b73-ed8c-b5342bd0c5a9"
+}
 
 USER_AGENT_CHOICES = [
 	'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
@@ -168,69 +168,69 @@ ITEM_PIPELINES = {
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+# CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
-#CONCURRENT_REQUESTS_PER_IP = 16
+# CONCURRENT_REQUESTS_PER_DOMAIN = 16
+# CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+# COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+# TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
+# DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
-#}
+# }
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'tzj_scrapy.middlewares.TzjScrapySpiderMiddleware': 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    'tzj_scrapy.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
+# EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+# }
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+# ITEM_PIPELINES = {
 #    'tzj_scrapy.pipelines.TzjScrapyPipeline': 300,
-#}
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+# AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-#AUTOTHROTTLE_START_DELAY = 5
+# AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
+# AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
+# AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_ENABLED = True
+# HTTPCACHE_EXPIRATION_SECS = 0
+# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_IGNORE_HTTP_CODES = []
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'

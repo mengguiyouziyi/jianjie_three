@@ -7,6 +7,20 @@
 
 import base64
 from random import choice
+from scrapy.exceptions import IgnoreRequest
+from jianjie.jianjie.utils.bloomfilter import PyBloomFilter, rc
+
+
+class BloomfilterMiddleware(object):
+	def __init__(self):
+		self.bf = PyBloomFilter(conn=rc)
+
+	def process_request(self, request, spider):
+		url = request.url
+		if self.bf.is_exist(url):
+			raise IgnoreRequest
+		else:
+			self.bf.add(url)
 
 
 class ProxyMiddleware(object):

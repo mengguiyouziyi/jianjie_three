@@ -4,7 +4,6 @@ from twisted.internet.threads import deferToThread
 
 from . import connection, defaults
 
-
 default_serialize = ScrapyJSONEncoder().encode
 
 

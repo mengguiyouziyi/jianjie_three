@@ -11,7 +11,8 @@ from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
 from scrapy.exceptions import DropItem
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
-	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem
+	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem, \
+	huang114AllItem
 
 
 class MysqlPipeline(object):
@@ -20,8 +21,9 @@ class MysqlPipeline(object):
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 		print('mysql init....')
-		# self.item_list = []
-		# dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+	# self.item_list = []
+	# dispatcher.connect(self.spider_closed, signals.spider_closed)
 
 	# def __init__(self):
 	#     self.browser = webdriver.Chrome(executable_path="D:/Temp/chromedriver.exe")
@@ -92,6 +94,12 @@ class MysqlPipeline(object):
 		elif isinstance(item, WuyouAllItem):
 			sql = """insert into jianjie_wuyou_all (comp_url, comp_name, intro, area) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['area']]
+			self.cursor.execute(sql, args)
+			self.conn.commit()
+		elif isinstance(item, huang114AllItem):
+			sql = """insert into jianjie_114_all (comp_url, comp_name, link_man, tel, email, addr, intro) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['link_man'], item['tel'], item['email'], item['addr'],
+			        item['intro']]
 			self.cursor.execute(sql, args)
 			self.conn.commit()
 		print(str(item['comp_url']) + ' ' + str(item['comp_name']))

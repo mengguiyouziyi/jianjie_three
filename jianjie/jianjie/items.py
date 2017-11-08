@@ -74,3 +74,13 @@ class WuyouAllItem(scrapy.Item):
 	comp_url = scrapy.Field()
 	intro = scrapy.Field()
 	area = scrapy.Field()
+
+
+class huang114AllItem(scrapy.Item):
+	comp_name = scrapy.Field()
+	comp_url = scrapy.Field()
+	link_man = scrapy.Field()
+	tel = scrapy.Field()
+	email = scrapy.Field()
+	addr = scrapy.Field()
+	intro = scrapy.Field()

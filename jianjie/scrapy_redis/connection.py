@@ -1,9 +1,7 @@
 import six
-
 from scrapy.utils.misc import load_object
 
 from . import defaults
-
 
 # Shortcut maps 'setting name' -> 'parmater name'.
 SETTINGS_PARAMS_MAP = {

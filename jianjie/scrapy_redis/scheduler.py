@@ -1,6 +1,6 @@
 import importlib
-import six
 
+import six
 from scrapy.utils.misc import load_object
 
 from . import connection, defaults
