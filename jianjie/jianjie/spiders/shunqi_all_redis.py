@@ -3,7 +3,7 @@ import scrapy
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import ShunqiAllItem
-# from jianjie.utils.bloomfilter import rc
+from jianjie.utils.bloomfilter import rc
 
 
 class TouzishijianSpider(scrapy.Spider):
@@ -44,7 +44,7 @@ class TouzishijianSpider(scrapy.Spider):
 				# if city in citys:
 				# 	continue
 				item['city'] = city
-
+				print(url)
 				yield scrapy.Request(url, callback=self.parse_city, meta={'item': item})
 
 	def parse_city(self, response):
@@ -58,6 +58,7 @@ class TouzishijianSpider(scrapy.Spider):
 		cat_tags = sel.xpath('//div[@class="boxcontent"]/ul[@class="listtxt"]/li/dl/dt/a')
 		for cat_tag in cat_tags:
 			cat_url = cat_tag.xpath('./@href').extract_first()
+			print(cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
 
 	def parse_list(self, response):
@@ -67,7 +68,7 @@ class TouzishijianSpider(scrapy.Spider):
 		for comp_url in comp_urls:
 			val = item['city'] + comp_url
 			print(val)
-			# rc.sadd('shunqi_all_detail', val)
+			rc.sadd('shunqi_all_detail', val)
 
 			# yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
 
@@ -77,6 +78,7 @@ class TouzishijianSpider(scrapy.Spider):
 		pn_nex = pn_ne if pn_ne else ''
 		if not pn_nex:
 			return
+		print('http:' + pn_ne)
 		yield scrapy.Request('http:' + pn_ne, callback=self.parse_list, meta={'item': item})
 
 	def parse_detail(self, response):
