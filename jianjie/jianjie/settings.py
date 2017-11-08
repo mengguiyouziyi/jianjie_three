@@ -116,7 +116,7 @@ DOWNLOADER_MIDDLEWARES = {
 	# 'jianjie.middlewares.ProxyMiddleware': 1,
 	'jianjie.middlewares.RetryMiddleware': 110,
 	'jianjie.middlewares.RotateUserAgentMiddleware': 3,
-	'jianjie.middlewares.BloomfilterMiddleware': 2,
+	# 'jianjie.middlewares.BloomfilterMiddleware': 2,
 	# 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
 }
 
@@ -129,7 +129,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-	'jianjie.pipelines.MysqlPipeline': 999,
+	# 'jianjie.pipelines.MysqlPipeline': 999,
 	# 'jianjie.pipelines.DuplicatesPipeline': 111,
 }
 
