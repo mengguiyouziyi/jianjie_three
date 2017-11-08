@@ -26,7 +26,7 @@ class TouzishijianSpider(scrapy.Spider):
 	def start_requests(self):
 		x = 0
 		while True:
-			com_id_name = rc.spop('shunqi_all_detail')
+			com_id_name = rc.spop('shunqi_all_detail_1')
 			if not com_id_name:
 				x += 1
 				if x > 5:
@@ -46,7 +46,7 @@ class TouzishijianSpider(scrapy.Spider):
 		comp_name = sel.xpath('//div[@class="navleft"]/a[last()]/text()').extract_first()
 		intros = sel.xpath('//div[@class="boxcontent text"]//text()').extract()
 		intro = ''.join(intros) if intros else ''
-		intro = intro.strip()
+		# intro = intro.strip()
 		item['comp_url'] = response.url
 		item['comp_name'] = comp_name
 		item['intro'] = intro
