@@ -4,6 +4,16 @@
 #
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
+import os
+import sys
+from os.path import dirname
+
+father_path = dirname(dirname(os.path.abspath(dirname(__file__))))
+base_path = dirname(dirname(os.path.abspath(dirname(__file__))))
+path = dirname(os.path.abspath(dirname(__file__)))
+sys.path.append(path)
+sys.path.append(base_path)
+sys.path.append(father_path)
 
 import base64
 from random import choice
