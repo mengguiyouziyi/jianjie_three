@@ -3,7 +3,7 @@ import scrapy
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import ShunqiAllItem
-from jianjie.jianjie.utils.bloomfilter import rc
+from jianjie.utils.bloomfilter import rc
 
 
 class TouzishijianSpider(scrapy.Spider):
