@@ -13,12 +13,12 @@ sys.path.append(father_path)
 sys.path.append(ffather_path)
 import scrapy
 import time
-from jianjie.jianjie.utils.bloomfilter import rc
+from jianjie.utils.bloomfilter import rc
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from scrapy.exceptions import CloseSpider
-from jianjie.jianjie.items import huang114AllItem
+from jianjie.items import huang114AllItem
 
 
 class TouzishijianSpider(CrawlSpider):
