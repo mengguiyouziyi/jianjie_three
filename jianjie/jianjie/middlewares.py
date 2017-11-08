@@ -18,6 +18,8 @@ sys.path.append(father_path)
 import base64
 from random import choice
 from scrapy.exceptions import IgnoreRequest
+
+
 # from jianjie.utils.bloomfilter import PyBloomFilter, rc
 
 

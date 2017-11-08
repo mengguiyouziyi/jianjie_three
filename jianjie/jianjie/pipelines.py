@@ -80,15 +80,15 @@ class MysqlPipeline(object):
 			args = ([item['comp_url'], item['comp_name'], item['intro'], item['city']])
 			self.cursor.executemany(sql, args)
 			self.conn.commit()
-			# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
-			# if len(self.item_list) == 500:
-			# 	sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
-			# 	self.cursor.executemany(sql, self.item_list)
-			# 	self.conn.commit()
-			# 	self.item_list.clear()
-			# 	print('200 insert')
-			# else:
-			# 	self.item_list.append([item['comp_url'], item['comp_name'], item['intro'], item['city']])
+		# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+		# if len(self.item_list) == 500:
+		# 	sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
+		# 	self.cursor.executemany(sql, self.item_list)
+		# 	self.conn.commit()
+		# 	self.item_list.clear()
+		# 	print('200 insert')
+		# else:
+		# 	self.item_list.append([item['comp_url'], item['comp_name'], item['intro'], item['city']])
 
 		elif isinstance(item, Huangye88AllItem):
 			sql = """insert into jianjie_huangye88_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
