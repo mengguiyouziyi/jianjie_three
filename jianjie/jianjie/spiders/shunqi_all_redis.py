@@ -3,7 +3,7 @@ import scrapy
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import ShunqiAllItem
-from jianjie.utils.bloomfilter import rc
+# from jianjie.utils.bloomfilter import rc
 
 
 class TouzishijianSpider(scrapy.Spider):
@@ -67,7 +67,7 @@ class TouzishijianSpider(scrapy.Spider):
 		for comp_url in comp_urls:
 			val = item['city'] + comp_url
 			print(val)
-			rc.sadd('shunqi_all_detail', val)
+			# rc.sadd('shunqi_all_detail', val)
 
 			# yield scrapy.Request('http:' + comp_url, callback=self.parse_detail, meta={'item': item})
 
