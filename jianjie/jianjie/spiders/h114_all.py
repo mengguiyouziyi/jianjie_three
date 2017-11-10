@@ -24,6 +24,7 @@ from jianjie.items import huang114AllItem
 class TouzishijianSpider(CrawlSpider):
 	name = 'huang114_all'
 	allowed_domains = ['114chn.com']
+	start_urls = ['http://www.114chn.com/']
 	custom_settings = {
 		'DEFAULT_REQUEST_HEADERS': {
 			'upgrade-insecure-requests': "1",
@@ -38,25 +39,27 @@ class TouzishijianSpider(CrawlSpider):
 		}
 	}
 
-	def start_requests(self):
-		burl = 'http://search.114chn.com/searchresult.aspx?type=1&key={k}&pattern=2&page=1'
-		x = 0
-		while True:
-			comp_name = rc.spop('zhuce_names')
-			if not comp_name:
-				x += 1
-				if x > 5:
-					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
-			url = burl.format(k=comp_name)
-			yield scrapy.Request(url, dont_filter=True)
+	# def start_requests(self):
+	# 	burl = 'http://search.114chn.com/searchresult.aspx?type=1&key={k}&pattern=2&page=1'
+	# 	x = 0
+	# 	while True:
+	# 		comp_name = rc.spop('zhuce_names')
+	# 		if not comp_name:
+	# 			x += 1
+	# 			if x > 5:
+	# 				raise CloseSpider('no datas')
+	# 			time.sleep(60)
+	# 			continue
+	# 		url = burl.format(k=comp_name)
+	# 		yield scrapy.Request(url, meta={'dont_redirect': True})
+
 		# start_url = "http://search.114chn.com/searchresult.aspx?type=1&areaid={area}&pattern=2&page=100"
 		# for i in range(100):
 		# 	yield scrapy.Request(start_url.format(area=str(i)), dont_filter=True)
 
 	rules = (
-		Rule(LinkExtractor(allow=('searchresult',))),
+		# Rule(LinkExtractor(allow=('searchresult',))),
+		Rule(LinkExtractor(allow=('114chn',))),
 		Rule(
 			LinkExtractor(
 				allow=(
