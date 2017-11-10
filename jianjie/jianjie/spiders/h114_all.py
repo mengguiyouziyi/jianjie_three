@@ -59,7 +59,7 @@ class TouzishijianSpider(CrawlSpider):
 
 	rules = (
 		# Rule(LinkExtractor(allow=('searchresult',))),
-		Rule(LinkExtractor(allow=('.*',))),
+		Rule(LinkExtractor(allow=('.*',), deny=('s\.114chn'))),
 		Rule(
 			LinkExtractor(
 				allow=(
