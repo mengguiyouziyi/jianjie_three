@@ -37,8 +37,8 @@ class ProxyMiddleware(object):
 	# 代理服务器
 	proxyServer = "http://proxy.abuyun.com:9020"
 
-	proxyUser = "H285292O32R01G0D"
-	proxyPass = "1DA6335539C2EB5F"
+	proxyUser = "HD3920957396Y39D"
+	proxyPass = "9E33CB0DEAD0A6E7"
 
 	# for Python3
 	proxyAuth = "Basic " + base64.urlsafe_b64encode(bytes((proxyUser + ":" + proxyPass), "ascii")).decode("utf8")
