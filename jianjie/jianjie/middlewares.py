@@ -17,7 +17,7 @@ sys.path.append(father_path)
 
 import base64
 from random import choice
-from scrapy.exceptions import IgnoreRequest
+from scrapy.exceptions import IgnoreRequest, CloseSpider
 
 
 # from jianjie.utils.bloomfilter import PyBloomFilter, rc
@@ -33,6 +33,11 @@ from scrapy.exceptions import IgnoreRequest
 # 			raise IgnoreRequest
 # 		else:
 # 			self.bf.add(url)
+
+class CloseMiddleware(object):
+	def process_response(self, request, response, spider):
+		if response.status == 402:
+			raise CloseSpider('402 proxy no use')
 
 
 class ProxyMiddleware(object):

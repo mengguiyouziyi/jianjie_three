@@ -9,6 +9,7 @@ from jianjie.utils.bloomfilter import rc
 
 class TouzishijianSpider(scrapy.Spider):
 	name = 'shunqi_all_redis_slave'
+	handle_httpstatus_list = [402]
 	custom_settings = {
 		'DEFAULT_REQUEST_HEADERS': {
 			'upgrade-insecure-requests': "1",
