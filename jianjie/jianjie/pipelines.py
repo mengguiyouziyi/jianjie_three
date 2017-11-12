@@ -10,7 +10,7 @@ import hashlib
 import time
 # from scrapy.xlib.pydispatch import dispatcher
 # from scrapy import signals
-from scrapy.exceptions import DropItem
+from scrapy.exceptions import DropItem, CloseSpider
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
 	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem, \
 	huang114AllItem
@@ -18,13 +18,8 @@ from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuz
 
 class MysqlPipeline(object):
 	def __init__(self):
-		try:
-			self.conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
-			                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
-		except Exception as e:
-			print(e)
-			time.sleep(2)
-			self.__init__()
+		self.conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
+		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 
 	# self.item_list = []
@@ -48,38 +43,24 @@ class MysqlPipeline(object):
 			# sql = """insert into kuchuan_all(id, app_package, down, trend) VALUES(%s, %s, %s, %s) ON DUPLICATE KEY UPDATE app_package=VALUES(app_package), down=VALUES(down), down=VALUES(trend)"""
 			sql = """insert into jianjie_huangye88_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, Huangye88LiuzhouItem):
 			sql = """insert into jianjie_huangye88_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, ShunqiLiuzhouItem):
 			sql = """insert into jianjie_shunqi_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, ShunqiKunmingItem):
 			sql = """insert into jianjie_shunqi_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, MinglujiLiuzhouItem):
 			sql = """insert into jianjie_mingluji_liuzhou (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, MinglujiKunmingItem):
 			sql = """insert into jianjie_mingluji_kunming (comp_url, comp_name, intro) VALUES(%s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, ShunqiAllItem):
 			sql = """insert into jianjie_shunqi_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
 		# if len(self.item_list) == 500:
 		# 	sql = """insert into jianjie_shunqi_all_copy (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
@@ -89,29 +70,30 @@ class MysqlPipeline(object):
 		# 	print('200 insert')
 		# else:
 		# 	self.item_list.append([item['comp_url'], item['comp_name'], item['intro'], item['city']])
-
 		elif isinstance(item, Huangye88AllItem):
 			sql = """insert into jianjie_huangye88_all (comp_url, comp_name, intro, city) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['city']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, Huangye88AotuItem):
 			sql = """insert into jianjie_huangye88_aotu (comp_url, comp_name, intro, posi, shengshi, cat) VALUES(%s, %s, %s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['posi'], item['shengshi'], item['cat']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, WuyouAllItem):
 			sql = """insert into jianjie_wuyou_all (comp_url, comp_name, intro, area) VALUES(%s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['intro'], item['area']]
-			self.cursor.execute(sql, args)
-			self.conn.commit()
 		elif isinstance(item, huang114AllItem):
 			sql = """insert into jianjie_114_all_copy (comp_url, comp_name, link_man, tel, email, addr, intro) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['link_man'], item['tel'], item['email'], item['addr'],
 			        item['intro']]
+		else:
+			raise CloseSpider('no item match...')
+		try:
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-		print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+			print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+		except pymysql.err.InterfaceError:
+			print('reconnect mysql...')
+			time.sleep(3)
+			self.__init__()
+			self.process_item(item, spider)
 
 
 class DuplicatesPipeline(object):

@@ -1,8 +1,26 @@
-import re
+import time
 
-url = 'http://www.11467.com/kunming/co/133281.htm'
-city = re.search(r'http://www\.11467\.com/(.*)/co/\d+.htm', url).group(1)
-print(city)
+
+class A(object):
+	def __init__(self):
+		print(1)
+
+	def f(self, num):
+		print(num)
+		time.sleep(3)
+		self.__init__()
+		self.f(num)
+
+
+if __name__ == '__main__':
+	a = A()
+	a.f(2)
+
+# import re
+#
+# url = 'http://www.11467.com/kunming/co/133281.htm'
+# city = re.search(r'http://www\.11467\.com/(.*)/co/\d+.htm', url).group(1)
+# print(city)
 
 
 # import requests
