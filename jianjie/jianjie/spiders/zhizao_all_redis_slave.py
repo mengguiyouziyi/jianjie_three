@@ -27,18 +27,18 @@ class TouzishijianSpider(scrapy.Spider):
 	}
 
 	def start_requests(self):
-		# x = 0
-		# while True:
-		# 	comp_url = rc.spop('zhizao_all_detail')
-		# 	if not comp_url:
-		# 		x += 1
-		# 		if x > 5:
-		# 			raise CloseSpider('no datas')
-		# 		time.sleep(60)
-		# 		continue
-		# 	yield scrapy.Request(comp_url)
-		comp_url = 'http://cn.made-in-china.com/showroom/yanggang1232-companyinfo.html'
-		yield scrapy.Request(comp_url)
+		x = 0
+		while True:
+			comp_url = rc.spop('zhizao_all_detail')
+			if not comp_url:
+				x += 1
+				if x > 5:
+					raise CloseSpider('no datas')
+				time.sleep(60)
+				continue
+			yield scrapy.Request(comp_url)
+		# comp_url = 'http://cn.made-in-china.com/showroom/yanggang1232-companyinfo.html'
+		# yield scrapy.Request(comp_url)
 
 	def parse(self, response):
 		item = ZhizaoAllItem()
@@ -54,7 +54,7 @@ class TouzishijianSpider(scrapy.Spider):
 				address = ''.join([x.strip() for x in address if x]) if address else ''
 
 		item['comp_url'] = response.url
-		item['comp_name'] = comp_name.trip() if comp_name else ''
+		item['comp_name'] = comp_name.strip() if comp_name else ''
 		item['intro'] = intro
 		item['addr'] = address
 
