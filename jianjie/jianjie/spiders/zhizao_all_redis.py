@@ -6,7 +6,7 @@ from jianjie.utils.bloomfilter import rc
 
 
 class TouzishijianSpider(scrapy.Spider):
-	name = 'zhizao_all_redis'
+	name = 'zhizao_all_redis_master'
 	custom_settings = {
 		'DEFAULT_REQUEST_HEADERS': {
 			'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
