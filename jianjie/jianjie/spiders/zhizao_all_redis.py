@@ -31,7 +31,9 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		cat_urls = select.xpath('//dl[contains(@class, "cata-item")]/dd/a/@href').extract()
 		for cat_url in cat_urls:
+			print(cat_url)
 			cat_url = urljoin(response.url, cat_url)
+			print(cat_url)
 			rc.sadd('zhizao_all_caturl', cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_cat)
 
