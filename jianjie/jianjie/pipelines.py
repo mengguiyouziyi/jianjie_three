@@ -13,7 +13,7 @@ import time
 from scrapy.exceptions import DropItem, CloseSpider
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
 	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem, \
-	huang114AllItem
+	huang114AllItem, ZhizaoAllItem
 
 
 class MysqlPipeline(object):
@@ -83,6 +83,9 @@ class MysqlPipeline(object):
 			sql = """insert into jianjie_114_all_copy (comp_url, comp_name, link_man, tel, email, addr, intro) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['link_man'], item['tel'], item['email'], item['addr'],
 			        item['intro']]
+		elif isinstance(item, ZhizaoAllItem):
+			sql = """insert into jianjie_zhizao_all (comp_url, comp_name, addr, intro) VALUES(%s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['addr'], item['intro']]
 		else:
 			raise CloseSpider('no item match...')
 		try:

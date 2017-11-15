@@ -84,3 +84,10 @@ class huang114AllItem(scrapy.Item):
 	email = scrapy.Field()
 	addr = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class ZhizaoAllItem(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	addr = scrapy.Field()
+	intro = scrapy.Field()
