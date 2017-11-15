@@ -31,9 +31,8 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		cat_urls = select.xpath('//dl[contains(@class, "cata-item")]/dd/a/@href').extract()
 		for cat_url in cat_urls:
-			print(cat_url)
 			cat_url = urljoin(response.url, cat_url)
-			print(cat_url)
+			print('cat_url', cat_url)
 			rc.sadd('zhizao_all_caturl', cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_cat)
 
@@ -45,6 +44,7 @@ class TouzishijianSpider(scrapy.Spider):
 			b_url = 'http://cn.made-in-china.com/showroom/'
 			comp_id = comp_url.replace(b_url, '').replace('.cn.made-in-china.com', '').replace('http://', '')
 			d_url = b_url + comp_id + "-companyinfo.html"
+			print('detail_url', d_url)
 			rc.sadd('zhizao_all_detail', d_url)
 
 		n_url = sel.xpath('//a[@class="page-next"]/@href').extract_first()
@@ -52,4 +52,5 @@ class TouzishijianSpider(scrapy.Spider):
 			return
 		n_url = urljoin(response.url, n_url)
 		rc.sadd('zhizao_all_caturl', n_url)
+		print('cat_next_url', n_url)
 		yield scrapy.Request(n_url, callback=self.parse_cat)
