@@ -2,11 +2,11 @@
 import scrapy
 from urllib.parse import urljoin
 from scrapy.selector import Selector
-from jianjie.items import JiqirenItem
+from jianjie.items import ChuanItem
 
 
 class TouzishijianSpider(scrapy.Spider):
-	name = 'jiqiren'
+	name = 'chuanganqi_all'
 	custom_settings = {
 		'DEFAULT_REQUEST_HEADERS': {
 			'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -14,26 +14,30 @@ class TouzishijianSpider(scrapy.Spider):
 			'accept-language': "zh-CN,zh;q=0.8",
 			'cache-control': "no-cache",
 			'connection': "keep-alive",
-			# 'cookie': "UM_distinctid=15fc95c2872d78-0fdfee884d9db7-31637e01-13c680-15fc95c28748a8; CNZZDATA3130222=cnzz_eid%3D346745979-1510908079-%26ntime%3D1510924313; Hm_lvt_99d3e8dc9c4fb1796f922e4fc84251b1=1510911782; Hm_lpvt_99d3e8dc9c4fb1796f922e4fc84251b1=1510928806; AJSTAT_ok_pages=9; AJSTAT_ok_times=2; __tins__5221700=%7B%22sid%22%3A1510928732944%2C%22vd%22%3A9%2C%22expires%22%3A1510930606401%7D; __51cke__=; __51laig__=10",
-			'host': "www.robot-china.com",
+			# 'cookie': "Hm_lvt_4d22079a74c0c1865d034963d557313f=1510911403; Hm_lpvt_4d22079a74c0c1865d034963d557313f=1510934801; Hm_lvt_51c1065086bf6fe4d8f2bcbb06462000=1510911403; Hm_lpvt_51c1065086bf6fe4d8f2bcbb06462000=1510934801",
+			'host': "www.chinasensor.cn",
+			'if-modified-since': "Thu, 09 Nov 2017 01:27:45 GMT",
+			'referer': "http://www.chinasensor.cn/company/chuanganqi/company_list_1.html",
 			'upgrade-insecure-requests': "1",
 			# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
-			'postman-token': "455d07fb-baa0-faf6-92c9-95ea6a2d771c"
+			'postman-token': "7777e054-b87e-2f33-0e51-6eeb797da05d"
 		}
 	}
 
 	def start_requests(self):
-		start_url = "http://www.robot-china.com/company/"
+		start_url = "http://www.chinasensor.cn/company/chuanganqi/"
 		yield scrapy.Request(start_url)
 
 	def parse(self, response):
 		select = Selector(text=response.text)
-		li_tags = select.xpath('//div[@id="catalog_index"]/a')
+		li_tags = select.xpath('//div[@class="category"]/div//tr/td/a')
 		for li_tag in li_tags:
+			item = ChuanItem()
 			cat_url = li_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url)
 			cat = li_tag.xpath('./@title').extract_first()
-			print(cat_url)
+			item['cat_url'] = cat_url
+			item['cat'] = cat
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_list(self, response):
@@ -71,7 +75,6 @@ class TouzishijianSpider(scrapy.Spider):
 		p_next = select.xpath('//a[@class="next"]/@href').extract_first()
 		if not p_next:
 			return
-		print(p_next)
 		yield scrapy.Request(p_next, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_detail(self, response):
