@@ -50,7 +50,7 @@ class TouzishijianSpider(scrapy.Spider):
 
 			loc_str = cat_tag.xpath('./text()').extract()
 			loc_str = ''.join([s.strip().replace('\r', '').replace('\t', '') for s in loc_str if s]) if loc_str else ''
-			print(loc_str)
+			# print(loc_str)
 			loc = re.search(r'所在地：(.*)', loc_str).group(1)
 			item['comp_url'] = comp_url
 			item['comp_name'] = comp_name
