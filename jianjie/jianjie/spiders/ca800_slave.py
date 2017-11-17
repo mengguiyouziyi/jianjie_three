@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import re
+import time
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import Ca800Item
+from jianjie.jianjie.utils.info import rc
+from scrapy.exceptions import CloseSpider
 
 
 class TouzishijianSpider(scrapy.Spider):
-	name = 'ca800_shenyang'
+	name = 'ca800_slave'
+
 	# custom_settings = {
 	# 	'DEFAULT_REQUEST_HEADERS': {
 	# 		'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -24,9 +28,16 @@ class TouzishijianSpider(scrapy.Spider):
 	# }
 
 	def start_requests(self):
-		start_urls = ["http://www.ca800.com/company/l_0_0_0_0_2_00_{}.html".format(i) for i in range(1, 9611)]
-		for start_url in start_urls:
-			yield scrapy.Request(start_url, meta={'dont_redirect': True})
+		x = 0
+		while True:
+			jiqiren_cat = rc.rpop('ca800_all')
+			if not jiqiren_cat:
+				x += 1
+				if x > 5:
+					raise CloseSpider('no datas')
+				time.sleep(60)
+				continue
+			yield scrapy.Request(jiqiren_cat)
 
 	def parse(self, response):
 		select = Selector(text=response.text)
