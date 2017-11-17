@@ -105,6 +105,7 @@ class Ca800Item(scrapy.Item):
 
 
 class JiqirenItem(scrapy.Item):
+	zhuying = scrapy.Field()
 	comp_url = scrapy.Field()
 	comp_name = scrapy.Field()
 	cat_url = scrapy.Field()

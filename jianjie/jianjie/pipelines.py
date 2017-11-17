@@ -90,8 +90,8 @@ class MysqlPipeline(object):
 			sql = """insert into jianjie_ca800_shenyang (comp_url, comp_name, cat_url, cat, loc, sheng, shi, intro) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['cat_url'], item['cat'], item['loc'], item['sheng'], item['shi'], item['intro']]
 		elif isinstance(item, JiqirenItem):
-			sql = """insert into jianjie_jiqiren_all (comp_url, comp_name, cat_url, cat, loc, sheng, shi, intro) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
-			args = [item['comp_url'], item['comp_name'], item['cat_url'], item['cat'], item['loc'], item['sheng'], item['shi'], item['intro']]
+			sql = """insert into jianjie_jiqiren_all (zhuying, comp_url, comp_name, cat_url, cat, loc, sheng, shi, intro) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+			args = [item['zhuying'], item['comp_url'], item['comp_name'], item['cat_url'], item['cat'], item['loc'], item['sheng'], item['shi'], item['intro']]
 
 
 		else:
