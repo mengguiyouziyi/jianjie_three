@@ -24,7 +24,7 @@ class TouzishijianSpider(scrapy.Spider):
 	}
 
 	def start_requests(self):
-		start_urls = ["http://www.ca800.com/company/l_0_0_0_1np9u0sknfer3_2_00_{}.html".format(range(1, 54))]
+		start_urls = ["http://www.ca800.com/company/l_0_0_0_1np9u0sknfer3_2_00_{}.html".format(i) for i in range(1, 54)]
 		for start_url in start_urls:
 			yield scrapy.Request(start_url)
 
