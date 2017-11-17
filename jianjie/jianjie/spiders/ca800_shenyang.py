@@ -54,9 +54,9 @@ class TouzishijianSpider(scrapy.Spider):
 			loc_str = cat_tag.xpath('./text()').extract()
 			loc_str = ''.join([s.strip().replace('\r', '').replace('\t', '') for s in loc_str if s]) if loc_str else ''
 			loc = re.search(r'所在地：(.*)', loc_str).group(1)
-			lia = re.search(r'(.*)-(.*)', loc)
-			sheng = lia.group(1) if len(lia) > 1 else ''
-			shi = lia.group(2) if len(lia) > 1 else lia.group(1)
+			lia = re.search(r'(.*)-(.*)', loc).groups()
+			sheng = lia[0] if len(lia) > 1 else ''
+			shi = lia[1] if len(lia) > 1 else lia[0]
 
 			intro = li_tag.xpath('./p/text()').extract_first()
 
