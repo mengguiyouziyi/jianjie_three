@@ -28,15 +28,16 @@ class TouzishijianSpider(scrapy.Spider):
 	# }
 
 	def start_requests(self):
-		x = 0
-		while True:
-			jiqiren_cat = rc.rpop('ca800_all')
-			if not jiqiren_cat:
-				x += 1
-				if x > 5:
-					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
+		# x = 0
+		# while True:
+		# 	jiqiren_cat = rc.rpop('ca800_all')
+		# 	if not jiqiren_cat:
+		# 		x += 1
+		# 		if x > 5:
+		# 			raise CloseSpider('no datas')
+		# 		time.sleep(60)
+		# 		continue
+			jiqiren_cat = 'http://www.ca800.com/company/l_0_0_0_0_2_00_9609.html'
 			yield scrapy.Request(jiqiren_cat)
 
 	def parse(self, response):
