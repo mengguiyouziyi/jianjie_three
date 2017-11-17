@@ -29,7 +29,7 @@ class TouzishijianSpider(scrapy.Spider):
 	def start_requests(self):
 		x = 0
 		while True:
-			jiqiren_cat = rc.spop('jiqiren_cat')
+			jiqiren_cat = rc.rpop('jiqiren_cat')
 			if not jiqiren_cat:
 				x += 1
 				if x > 5:

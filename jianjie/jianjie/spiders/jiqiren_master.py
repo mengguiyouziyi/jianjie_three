@@ -35,8 +35,8 @@ class TouzishijianSpider(scrapy.Spider):
 			cat_url = li_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url)
 			cat = li_tag.xpath('./@title').extract_first()
-			print(cat_url)
 			rc.lpush('jiqiren_cat', cat + '~' + cat_url)
+			print(cat_url)
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_list(self, response):
