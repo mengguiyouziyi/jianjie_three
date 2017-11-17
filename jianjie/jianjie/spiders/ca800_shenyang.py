@@ -30,6 +30,8 @@ class TouzishijianSpider(scrapy.Spider):
 
 	def parse(self, response):
 		print(response.url)
+		if 'intro' not in response.url:
+			return
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
 		for li_tag in li_tags:
@@ -58,7 +60,7 @@ class TouzishijianSpider(scrapy.Spider):
 			item['cat'] = cat
 			item['loc'] = loc
 
-			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item, 'dont_redirect': True})
+			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item})
 
 	def parse_detail(self, response):
 		print(response.url)
