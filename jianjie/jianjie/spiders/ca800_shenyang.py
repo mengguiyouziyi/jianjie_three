@@ -57,9 +57,7 @@ class TouzishijianSpider(scrapy.Spider):
 			lia = re.search(r'(.*)-(.*)', loc)
 			lia = lia.groups() if lia else []
 			sheng = lia[0] if len(lia) > 1 else ''
-			shi = ''
-			if lia:
-				shi = lia[1] if len(lia) > 1 else lia[0]
+			shi = lia[1] if len(lia) > 1 else lia[0]
 
 			intro = li_tag.xpath('./p/text()').extract_first()
 
