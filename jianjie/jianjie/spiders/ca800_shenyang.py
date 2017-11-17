@@ -42,7 +42,8 @@ class TouzishijianSpider(scrapy.Spider):
 			if not comp_url:
 				return
 			comp_name = a_tag.xpath('./text()').extract()
-			comp_name = ''.join([c.strip().replace('\r', '').replace('\t', '') for c in comp_name if c]) if comp_name else ''
+			comp_name = ''.join(
+				[c.strip().replace('\r', '').replace('\t', '') for c in comp_name if c]) if comp_name else ''
 
 			cat_tag = li_tag.xpath('./div[@class="facrlist_guild"]')
 			cat_a_tag = cat_tag.xpath('./a')
@@ -66,15 +67,16 @@ class TouzishijianSpider(scrapy.Spider):
 			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item})
 
 	def parse_detail(self, response):
-		print(response.url)
 		item = response.meta.get('item', '')
 		if not item:
 			return
 		if 'intro' not in response.url:
+			print('no intro  ', response.url)
 			yield item
 			return
 		select = Selector(text=response.text)
 		text = select.xpath('//div[@class="main-box"]/div[@class="detail"]//text()').extract()
-		intro = ''.join([t.strip().replace('\r', '').replace('\t', '').replace('    ', '').replace(' ', '').replace('  ', '').replace('   ', '') for t in text if t]) if text else ''
+		intro = ''.join([t.strip().replace('\r', '').replace('\t', '').replace('    ', '').replace(' ', '').replace(
+			'  ', '').replace('   ', '').replace('██', '').replace('企   业   简   介', '') for t in text if t]) if text else ''
 		item['intro'] = intro
 		yield item
