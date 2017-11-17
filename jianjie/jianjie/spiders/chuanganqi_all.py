@@ -32,21 +32,25 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="category"]/div//tr/td/a')
 		for li_tag in li_tags:
-			item = ChuanItem()
 			cat_url = li_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url)
-			cat = li_tag.xpath('./@title').extract_first()
-			item['cat_url'] = cat_url
-			item['cat'] = cat
+			cat = li_tag.xpath('./text()').extract_first()
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_list(self, response):
 		cat_url = response.meta.get('cat_url')
 		cat = response.meta.get('cat')
 		select = Selector(text=response.text)
-		a_tags = select.xpath('//*[@id="item_"]')
+		a_tags = select.xpath('//div[@class="list"]/tr[@align="center"]')
+
 		for a_tag in a_tags:
-			item = JiqirenItem()
+			li_tag = a_tag.xpath('./td[@align="left"]/ul/li')
+			li_tag.xpath('/')
+
+
+
+
+			item = ChuanItem()
 			comp_url = a_tag.xpath('./a/@href').extract_first()
 			comp_name = a_tag.xpath('./a/div/b/text()').extract_first()
 			zhuying = a_tag.xpath('./a/div/span/text()').extract_first()
