@@ -33,11 +33,11 @@ class TouzishijianSpider(scrapy.Spider):
 		while True:
 			jiqiren_cat = rc.rpop('jiqiren_cat')
 			if not jiqiren_cat:
-				x += 1
-				if x > 5:
+				# x += 1
+				# if x > 5:
 					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
+				# time.sleep(60)
+				# continue
 			ll = jiqiren_cat.split('~')
 			cat_url = ll[1]
 			cat = ll[0]
