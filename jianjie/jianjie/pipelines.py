@@ -13,7 +13,7 @@ import time
 from scrapy.exceptions import DropItem, CloseSpider
 from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuzhouItem, ShunqiKunmingItem, \
 	MinglujiLiuzhouItem, MinglujiKunmingItem, ShunqiAllItem, Huangye88AllItem, Huangye88AotuItem, WuyouAllItem, \
-	huang114AllItem, ZhizaoAllItem, Ca800Item
+	huang114AllItem, ZhizaoAllItem, Ca800Item, JiqirenItem
 
 
 class MysqlPipeline(object):
@@ -89,6 +89,10 @@ class MysqlPipeline(object):
 		elif isinstance(item, Ca800Item):
 			sql = """insert into jianjie_ca800_shenyang (comp_url, comp_name, cat_url, cat, loc, sheng, shi, intro) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
 			args = [item['comp_url'], item['comp_name'], item['cat_url'], item['cat'], item['loc'], item['sheng'], item['shi'], item['intro']]
+		elif isinstance(item, JiqirenItem):
+			sql = """insert into jianjie_jiqiren_all (comp_url, comp_name, cat_url, cat, loc, sheng, shi, intro) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
+			args = [item['comp_url'], item['comp_name'], item['cat_url'], item['cat'], item['loc'], item['sheng'], item['shi'], item['intro']]
+
 
 		else:
 			raise CloseSpider('no item match...')

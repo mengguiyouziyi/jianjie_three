@@ -102,3 +102,14 @@ class Ca800Item(scrapy.Item):
 	sheng = scrapy.Field()
 	shi = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class JiqirenItem(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	cat_url = scrapy.Field()
+	cat = scrapy.Field()
+	loc = scrapy.Field()
+	sheng = scrapy.Field()
+	shi = scrapy.Field()
+	intro = scrapy.Field()
