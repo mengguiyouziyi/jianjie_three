@@ -53,7 +53,11 @@ class TouzishijianSpider(scrapy.Spider):
 			loc_list = loc.split('/')
 			sheng = shi = ''
 			if len(loc_list) == 1:
-				sheng = shi = loc
+				if loc in ['北京', '上海', '天津', '重庆']:
+					sheng = loc
+					shi = loc + '市'
+				else:
+					sheng = loc
 			elif len(loc_list) == 2:
 				sheng = loc_list[0]
 				shi = loc_list[1]
