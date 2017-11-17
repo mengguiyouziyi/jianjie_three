@@ -114,7 +114,7 @@ USER_AGENT_CHOICES = [
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
 	'jianjie.middlewares.CloseMiddleware': 111,
-	# 'jianjie.middlewares.ProxyMiddleware': 1,
+	'jianjie.middlewares.ProxyMiddleware': 1,
 	'jianjie.middlewares.RetryMiddleware': 110,
 	'jianjie.middlewares.RotateUserAgentMiddleware': 3,
 	# 'jianjie.middlewares.BloomfilterMiddleware': 2,

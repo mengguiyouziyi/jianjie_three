@@ -15,7 +15,7 @@ class TouzishijianSpider(scrapy.Spider):
 			'cache-control': "no-cache",
 			'connection': "keep-alive",
 			# 'cookie': "UM_distinctid=15fc95c2872d78-0fdfee884d9db7-31637e01-13c680-15fc95c28748a8; CNZZDATA3130222=cnzz_eid%3D346745979-1510908079-%26ntime%3D1510924313; Hm_lvt_99d3e8dc9c4fb1796f922e4fc84251b1=1510911782; Hm_lpvt_99d3e8dc9c4fb1796f922e4fc84251b1=1510928806; AJSTAT_ok_pages=9; AJSTAT_ok_times=2; __tins__5221700=%7B%22sid%22%3A1510928732944%2C%22vd%22%3A9%2C%22expires%22%3A1510930606401%7D; __51cke__=; __51laig__=10",
-			'host': "www.robot-china.com",
+			# 'host': "www.robot-china.com",
 			'upgrade-insecure-requests': "1",
 			# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
 			'postman-token': "455d07fb-baa0-faf6-92c9-95ea6a2d771c"
