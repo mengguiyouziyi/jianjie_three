@@ -31,6 +31,7 @@ class TouzishijianSpider(scrapy.Spider):
 	def parse(self, response):
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
+		print(len(li_tags))
 		for li_tag in li_tags:
 			item = Ca800Item()
 			a_tag = li_tag.xpath('./div[@class="facrlist_title"]/a')
