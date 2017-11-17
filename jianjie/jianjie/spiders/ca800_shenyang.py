@@ -26,9 +26,10 @@ class TouzishijianSpider(scrapy.Spider):
 	def start_requests(self):
 		start_urls = ["http://www.ca800.com/company/l_0_0_0_1np9u0sknfer3_2_00_{}.html".format(i) for i in range(1, 54)]
 		for start_url in start_urls:
-			yield scrapy.Request(start_url)
+			yield scrapy.Request(start_url, meta={'dont_redirect': True})
 
 	def parse(self, response):
+		print(response.url)
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
 		for li_tag in li_tags:
@@ -57,9 +58,10 @@ class TouzishijianSpider(scrapy.Spider):
 			item['cat'] = cat
 			item['loc'] = loc
 
-			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item})
+			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item, 'dont_redirect': True})
 
 	def parse_detail(self, response):
+		print(response.url)
 		item = response.meta.get('item', '')
 		if not item:
 			return
