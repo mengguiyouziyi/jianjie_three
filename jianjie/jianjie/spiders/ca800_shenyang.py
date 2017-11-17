@@ -29,14 +29,13 @@ class TouzishijianSpider(scrapy.Spider):
 			yield scrapy.Request(start_url, meta={'dont_redirect': True})
 
 	def parse(self, response):
-		print(response.url)
-
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
 		for li_tag in li_tags:
 			item = Ca800Item()
 			a_tag = li_tag.xpath('./div[@class="facrlist_title"]/a')
 			comp_url = a_tag.xpath('./@href').extract_first()
+			print(comp_url)
 			comp_url = urljoin(response.url, comp_url) if comp_url else ''
 			comp_url = comp_url.replace('index.html', 'intro.html')
 			if not comp_url:
@@ -54,6 +53,9 @@ class TouzishijianSpider(scrapy.Spider):
 			loc_str = cat_tag.xpath('./text()').extract()
 			loc_str = ''.join([s.strip().replace('\r', '').replace('\t', '') for s in loc_str if s]) if loc_str else ''
 			loc = re.search(r'所在地：(.*)', loc_str).group(1)
+			lia = re.search(r'(.*)-(.*)', loc)
+			sheng = lia.group(1) if len(lia) > 1 else ''
+			shi = lia.group(2) if len(lia) > 1 else lia.group(1)
 
 			intro = li_tag.xpath('./p/text()').extract_first()
 
@@ -62,6 +64,8 @@ class TouzishijianSpider(scrapy.Spider):
 			item['cat_url'] = cat_url
 			item['cat'] = cat
 			item['loc'] = loc
+			item['sheng'] = sheng
+			item['shi'] = shi
 			item['intro'] = intro
 
 			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item})
@@ -77,6 +81,7 @@ class TouzishijianSpider(scrapy.Spider):
 		select = Selector(text=response.text)
 		text = select.xpath('//div[@class="main-box"]/div[@class="detail"]//text()').extract()
 		intro = ''.join([t.strip().replace('\r', '').replace('\t', '').replace('    ', '').replace(' ', '').replace(
-			'  ', '').replace('   ', '').replace('██', '').replace('企   业   简   介', '') for t in text if t]) if text else ''
+			'  ', '').replace('   ', '').replace('██', '').replace('企   业   简   介', '') for t in text if
+		                 t]) if text else ''
 		item['intro'] = intro
 		yield item
