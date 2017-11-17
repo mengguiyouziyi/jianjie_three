@@ -49,8 +49,8 @@ class TouzishijianSpider(scrapy.Spider):
 			cat = cat_a_tag.xpath('./text()').extract_first()
 
 			loc_str = cat_tag.xpath('./text()').extract()
-			print(loc_str)
 			loc_str = ''.join([s.strip() for s in loc_str if s]) if loc_str else ''
+			print(loc_str)
 			loc = re.search(r'所在地：(.*?)相关产品分类', loc_str).group(1)
 			item['comp_url'] = comp_url
 			item['comp_name'] = comp_name
