@@ -41,12 +41,15 @@ class TouzishijianSpider(scrapy.Spider):
 				return
 			comp_name = a_tag.xpath('./text()').extract()
 			comp_name = ''.join([c.strip() for c in comp_name if c]) if comp_name else ''
+
 			cat_tag = li_tag.xpath('./div[@class="facrlist_guild"]')
 			cat_a_tag = li_tag.xpath('./a')
 			cat_url = cat_a_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url) if cat_url else ''
 			cat = cat_a_tag.xpath('./text()').extract_first()
+
 			loc_str = cat_tag.xpath('./text()').extract()
+			print(loc_str)
 			loc_str = ''.join([s.strip() for s in loc_str if s]) if loc_str else ''
 			loc = re.search(r'所在地：(.*?)相关产品分类', loc_str).group(1)
 			item['comp_url'] = comp_url
