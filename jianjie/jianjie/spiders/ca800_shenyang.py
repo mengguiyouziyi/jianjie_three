@@ -30,8 +30,7 @@ class TouzishijianSpider(scrapy.Spider):
 
 	def parse(self, response):
 		print(response.url)
-		if 'intro' not in response.url:
-			return
+
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
 		for li_tag in li_tags:
@@ -64,6 +63,8 @@ class TouzishijianSpider(scrapy.Spider):
 
 	def parse_detail(self, response):
 		print(response.url)
+		if 'intro' not in response.url:
+			return
 		item = response.meta.get('item', '')
 		if not item:
 			return
