@@ -39,8 +39,8 @@ class TouzishijianSpider(scrapy.Spider):
 		# 		time.sleep(60)
 		# 		continue
 			ll = jiqiren_cat.split('~')
-			cat_url = ll[0]
-			cat = ll[1]
+			cat_url = ll[1]
+			cat = ll[0]
 			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_list(self, response):
