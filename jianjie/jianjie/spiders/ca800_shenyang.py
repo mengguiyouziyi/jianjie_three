@@ -24,19 +24,19 @@ class TouzishijianSpider(scrapy.Spider):
 	}
 
 	def start_requests(self):
-		start_urls = ["http://www.ca800.com/company/l_0_0_0_1np9u0sknfer3_2_00_{}.html".format(i) for i in range(1, 54)]
+		start_urls = ["http://www.ca800.com/company/l_0_0_0_0_2_00_{}.html".format(i) for i in range(1, 9611)]
 		for start_url in start_urls:
 			yield scrapy.Request(start_url, meta={'dont_redirect': True})
 
 	def parse(self, response):
 		select = Selector(text=response.text)
 		li_tags = select.xpath('//div[@class="factlist"]/ul/li')
-		print(len(li_tags))
+		# print(len(li_tags))
 		for li_tag in li_tags:
 			item = Ca800Item()
 			a_tag = li_tag.xpath('./div[@class="facrlist_title"]/a')
 			comp_url = a_tag.xpath('./@href').extract_first()
-			print(comp_url)
+			# print(comp_url)
 			comp_url = urljoin(response.url, comp_url) if comp_url else ''
 			comp_url = comp_url.replace('index.html', 'intro.html')
 			if not comp_url:
@@ -76,7 +76,7 @@ class TouzishijianSpider(scrapy.Spider):
 		if not item:
 			return
 		if 'intro' not in response.url:
-			print('no intro  ', response.url)
+			# print('no intro  ', response.url)
 			yield item
 			return
 		select = Selector(text=response.text)
