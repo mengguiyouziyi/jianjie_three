@@ -45,6 +45,7 @@ class TouzishijianSpider(scrapy.Spider):
 			cat_tag = li_tag.xpath('./div[@class="facrlist_guild"]')
 			cat_a_tag = li_tag.xpath('./a')
 			print(cat_a_tag)
+			print(cat_a_tag.extract())
 			cat_url = cat_a_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url) if cat_url else ''
 			cat = cat_a_tag.xpath('./text()').extract_first()
