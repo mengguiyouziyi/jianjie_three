@@ -27,17 +27,17 @@ class TouzishijianSpider(scrapy.Spider):
 	# }
 
 	def start_requests(self):
-		jiqiren_cats = ['弧焊机器人~http://www.robot-china.com/company/list-4-3.html']
-		for jiqiren_cat in jiqiren_cats:
-		# x = 0
-		# while True:
-		# 	jiqiren_cat = rc.rpop('jiqiren_cat')
-		# 	if not jiqiren_cat:
-		# 		x += 1
-		# 		if x > 5:
-		# 			raise CloseSpider('no datas')
-		# 		time.sleep(60)
-		# 		continue
+		# jiqiren_cats = ['弧焊机器人~http://www.robot-china.com/company/list-4-3.html']
+		# for jiqiren_cat in jiqiren_cats:
+		x = 0
+		while True:
+			jiqiren_cat = rc.rpop('jiqiren_cat')
+			if not jiqiren_cat:
+				x += 1
+				if x > 5:
+					raise CloseSpider('no datas')
+				time.sleep(60)
+				continue
 			ll = jiqiren_cat.split('~')
 			cat_url = ll[1]
 			cat = ll[0]
@@ -74,7 +74,8 @@ class TouzishijianSpider(scrapy.Spider):
 			item['loc'] = loc
 			item['sheng'] = sheng
 			item['shi'] = shi
-			yield scrapy.Request(comp_url + 'introduce/', callback=self.parse_detail, meta={'item': item}, dont_filter=True)
+			yield scrapy.Request(comp_url + 'introduce/', callback=self.parse_detail, meta={'item': item},
+			                     dont_filter=True)
 
 	def parse_detail(self, response):
 		item = response.meta.get('item')
