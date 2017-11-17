@@ -44,13 +44,13 @@ class TouzishijianSpider(scrapy.Spider):
 
 			cat_tag = li_tag.xpath('./div[@class="facrlist_guild"]')
 			cat_a_tag = li_tag.xpath('./a')
+			print(cat_a_tag)
 			cat_url = cat_a_tag.xpath('./@href').extract_first()
 			cat_url = urljoin(response.url, cat_url) if cat_url else ''
 			cat = cat_a_tag.xpath('./text()').extract_first()
 
 			loc_str = cat_tag.xpath('./text()').extract()
 			loc_str = ''.join([s.strip().replace('\r', '').replace('\t', '') for s in loc_str if s]) if loc_str else ''
-			# print(loc_str)
 			loc = re.search(r'所在地：(.*)', loc_str).group(1)
 			item['comp_url'] = comp_url
 			item['comp_name'] = comp_name
