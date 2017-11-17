@@ -36,15 +36,15 @@ class TouzishijianSpider(scrapy.Spider):
 			cat = li_tag.xpath('./@title').extract_first()
 			item['cat_url'] = cat_url
 			item['cat'] = cat
-			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'item': item})
+			yield scrapy.Request(cat_url, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_list(self, response):
-		item = response.meta.get('item')
-		if not item:
-			return
+		cat_url = response.meta.get('cat_url')
+		cat = response.meta.get('cat')
 		select = Selector(text=response.text)
 		a_tags = select.xpath('//*[@id="item_"]')
 		for a_tag in a_tags:
+			item = JiqirenItem()
 			comp_url = a_tag.xpath('./a/@href').extract_first()
 			comp_name = a_tag.xpath('./a/div/b/text()').extract_first()
 			zhuying = a_tag.xpath('./a/div/span/text()').extract_first()
@@ -57,6 +57,8 @@ class TouzishijianSpider(scrapy.Spider):
 			elif len(loc_list) == 2:
 				sheng = loc_list[0]
 				shi = loc_list[1]
+			item['cat_url'] = cat_url
+			item['cat'] = cat
 			item['comp_url'] = comp_url
 			item['comp_name'] = comp_name
 			item['zhuying'] = zhuying
@@ -64,6 +66,10 @@ class TouzishijianSpider(scrapy.Spider):
 			item['sheng'] = sheng
 			item['shi'] = shi
 			yield scrapy.Request(comp_url + 'introduce/', callback=self.parse_detail, meta={'item': item})
+		p_next = select.xpath('//a[@class="next"]/@href').extract_first()
+		if not p_next:
+			return
+		yield scrapy.Request(p_next, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
 
 	def parse_detail(self, response):
 		item = response.meta.get('item')
