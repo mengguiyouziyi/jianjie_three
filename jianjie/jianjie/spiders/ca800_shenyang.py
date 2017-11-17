@@ -65,7 +65,7 @@ class TouzishijianSpider(scrapy.Spider):
 		if not item:
 			return
 		select = Selector(text=response.text)
-		text = select.xpath('//div[@class="detail"]//text()').extract()
+		text = select.xpath('//div[@class="main-box"]/div[@class="detail"]//text()').extract()
 		intro = ''.join(text) if text else ''
 		item['intro'] = intro
 		yield item
