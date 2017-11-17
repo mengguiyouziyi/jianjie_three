@@ -18,7 +18,7 @@ from jianjie.items import Huangye88KunmingItem, Huangye88LiuzhouItem, ShunqiLiuz
 
 class MysqlPipeline(object):
 	def __init__(self):
-		self.conn = pymysql.connect(host='172.31.215.38', port=3306, user='spider', password='spider', db='spider',
+		self.conn = pymysql.connect(host='172.31.215.36', port=3306, user='base', password='imkloKuLiqNMc6Cn', db='spider',
 		                            charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 		self.cursor = self.conn.cursor()
 

@@ -14,12 +14,12 @@ class TouzishijianSpider(scrapy.Spider):
 			'accept-encoding': "gzip, deflate",
 			'accept-language': "zh-CN,zh;q=0.8",
 			'cache-control': "no-cache",
-			'connection': "keep-alive",
+			# 'connection': "keep-alive",
 			# 'cookie': "ASP.NET_SessionId=kh5iqkvjtb4vjthzf40t54x1; cookiesmark=2017111717345000003; Hm_lvt_57a0c48ef04a2d3a7e7dec8e459b2bb4=1510911322; Hm_lpvt_57a0c48ef04a2d3a7e7dec8e459b2bb4=1510911380; sid=2017111717351400003; vid=2017111717351400004; _ga=GA1.2.332251248.1510911440; _gid=GA1.2.926593169.1510911440",
 			'host': "www.ca800.com",
 			'upgrade-insecure-requests': "1",
 			# 'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
-			'postman-token': "05eca74f-a731-dd48-9e85-fba7ae401bc6"
+			# 'postman-token': "05eca74f-a731-dd48-9e85-fba7ae401bc6"
 		}
 	}
 
