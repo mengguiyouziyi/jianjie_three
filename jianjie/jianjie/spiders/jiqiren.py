@@ -70,6 +70,7 @@ class TouzishijianSpider(scrapy.Spider):
 			yield scrapy.Request(comp_url + 'introduce/', callback=self.parse_detail, meta={'item': item})
 		p_next = select.xpath('//a[@class="next"]/@href').extract_first()
 		if not p_next:
+			print('no next')
 			return
 		print(p_next)
 		yield scrapy.Request(p_next, callback=self.parse_list, meta={'cat_url': cat_url, 'cat': cat})
