@@ -5,7 +5,7 @@ import time
 from urllib.parse import urljoin
 from scrapy.selector import Selector
 from jianjie.items import Ca800Item
-from jianjie.jianjie.utils.info import rc
+from jianjie.utils.info import rc
 from scrapy.exceptions import CloseSpider
 
 

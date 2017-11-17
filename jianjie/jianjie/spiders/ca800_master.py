@@ -28,4 +28,5 @@ class TouzishijianSpider(scrapy.Spider):
 	def start_requests(self):
 		start_urls = ["http://www.ca800.com/company/l_0_0_0_0_2_00_{}.html".format(i) for i in range(1, 9611)]
 		for start_url in start_urls:
+			print(start_url)
 			rc.lpush('ca800_all', start_url)
