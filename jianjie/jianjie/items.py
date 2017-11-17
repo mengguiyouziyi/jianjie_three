@@ -91,3 +91,10 @@ class ZhizaoAllItem(scrapy.Item):
 	comp_name = scrapy.Field()
 	addr = scrapy.Field()
 	intro = scrapy.Field()
+
+
+class Ca800Item(scrapy.Item):
+	comp_url = scrapy.Field()
+	comp_name = scrapy.Field()
+	addr = scrapy.Field()
+	intro = scrapy.Field()

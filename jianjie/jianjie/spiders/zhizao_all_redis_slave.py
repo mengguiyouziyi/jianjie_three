@@ -32,7 +32,7 @@ class TouzishijianSpider(scrapy.Spider):
 			comp_url = rc.spop('zhizao_all_detail')
 			if not comp_url:
 				x += 1
-				if x > 5:
+				if x > 3:
 					raise CloseSpider('no datas')
 				time.sleep(60)
 				continue
