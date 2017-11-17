@@ -53,11 +53,15 @@ class TouzishijianSpider(scrapy.Spider):
 			loc_str = cat_tag.xpath('./text()').extract()
 			loc_str = ''.join([s.strip().replace('\r', '').replace('\t', '') for s in loc_str if s]) if loc_str else ''
 			loc = re.search(r'所在地：(.*)', loc_str).group(1)
+
+			intro = li_tag.xpath('./p/text()').extract_first()
+
 			item['comp_url'] = comp_url
 			item['comp_name'] = comp_name
 			item['cat_url'] = cat_url
 			item['cat'] = cat
 			item['loc'] = loc
+			item['intro'] = intro
 
 			yield scrapy.Request(comp_url, callback=self.parse_detail, meta={'item': item})
 
