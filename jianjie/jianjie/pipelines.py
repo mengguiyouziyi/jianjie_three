@@ -102,7 +102,7 @@ class MysqlPipeline(object):
 		try:
 			self.cursor.execute(sql, args)
 			self.conn.commit()
-			print(str(item['comp_url']) + ' ' + str(item['comp_name']))
+			# print(str(item['comp_url']) + ' ' + str(item['comp_name']))
 		except pymysql.err.InterfaceError:
 			print('reconnect mysql...')
 			time.sleep(3)
