@@ -32,7 +32,7 @@ NEWSPIDER_MODULE = 'jianjie.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 100
+# CONCURRENT_REQUESTS = 100
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -46,7 +46,7 @@ CONCURRENT_REQUESTS = 100
 # COOKIES_ENABLED = False
 
 # DEBUG INFO WARNING ERROR CRITICAL
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 
 LOG_STDOUT = True
 

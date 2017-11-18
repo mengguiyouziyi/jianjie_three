@@ -30,7 +30,7 @@ class TouzishijianSpider(scrapy.Spider):
 	def start_requests(self):
 		x = 0
 		while True:
-			jiqiren_cat = rc.rpop('ca800_all')
+			jiqiren_cat = rc.lpop('ca800_all')
 			if not jiqiren_cat:
 				x += 1
 				if x > 5:
