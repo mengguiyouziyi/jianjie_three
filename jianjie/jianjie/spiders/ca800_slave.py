@@ -32,11 +32,13 @@ class TouzishijianSpider(scrapy.Spider):
 		while True:
 			jiqiren_cat = rc.lpop('ca800_all')
 			if not jiqiren_cat:
-				x += 1
-				if x > 5:
-					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
+				raise CloseSpider('no datas')
+
+				# x += 1
+				# if x > 5:
+				# 	raise CloseSpider('no datas')
+				# time.sleep(60)
+				# continue
 			# jiqiren_cat = 'http://www.ca800.com/company/l_0_0_0_0_2_00_9609.html'
 			yield scrapy.Request(jiqiren_cat)
 
